@@ -186,6 +186,7 @@ module.exports={
     updateBoard,
     updateFavouritePosition,
     getFavourites,
+    deleteBoard
 
 
 }
