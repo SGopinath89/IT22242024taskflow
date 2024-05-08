@@ -5,7 +5,6 @@ const {v4 : uuidv4} = require('uuid')
 const asyncHandler = require("express-async-handler");
 
 
-
 const register = asyncHandler (async (req,res)=>{
     const {username, password} = req.body;
 
