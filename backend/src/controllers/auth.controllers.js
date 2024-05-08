@@ -3,8 +3,7 @@ const bcrypt = require('bcrypt');
 const userModel = require('../models/user.js');
 const {v4 : uuidv4} = require('uuid')
 const asyncHandler = require("express-async-handler");
-const { response } = require('express');
-const { get } = require('mongoose');
+
 
 
 const register = asyncHandler (async (req,res)=>{
@@ -30,7 +29,7 @@ const register = asyncHandler (async (req,res)=>{
             res.status(500).json({error:error,})
         })
     })
-} catch(error){
+    } catch(error){
     return res.status(412).send({
         success: false,
         message: error.message
@@ -44,12 +43,12 @@ const login = asyncHandler(async(req, res) =>{
 
 
     let getUser
-    userModel.findone({username:usernamr}).then((user)=>{
+    userModel.findOne({username:username}).then((user)=>{
         if(!user){
             return res.status(401).json({message: "Authentication failed"})
         }
         getUser = user
-        return bcrypt.compare(password,user.passsword)
+        return bcrypt.compare(password,user.password)
     }).then((response)=>{
         if(!response){
             return res.status(401).json({message: "Authentication failed"})
@@ -78,7 +77,6 @@ const login = asyncHandler(async(req, res) =>{
             success: false
         })
     })
-       
 });
 
 
@@ -86,7 +84,7 @@ const userProfile = asyncHandler(async(req,res,next)=>{
     const {id} = req.params;
 
     try{
-        const verifyUser = await userModel.findOne({ userId: ID})
+        const verifyUser = await userModel.findOne({ userId: id})
         if (!verifyUser){
             return res.status(403).json({
                 message: "user not found",
