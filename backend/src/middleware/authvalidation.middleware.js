@@ -1,6 +1,6 @@
 const validator = require('../utils/validator.js');
 
-const registerVlidation = async(req,res, next)=>{
+const registerValidation = async(req,res, next)=>{
     const validateRule ={
         "username": "required|string|min:3",
         "password": "required|min:6",
@@ -10,14 +10,13 @@ const registerVlidation = async(req,res, next)=>{
         if(!status){
             res.status(412).send({
                 success: false,
-                message: 'Validatation failed',
+                message: 'Validation failed',
                 data: err
             })
         }else{
             next();
         }
-}).catch(err => console.log(err))
-
+    }).catch(err => console.log(err))
 }
 
 const loginValidation = async (req, res, next) => {
