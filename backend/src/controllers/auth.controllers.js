@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 const userModel = require('../models/user.js');
 const {v4 : uuidv4} = require('uuid')
 const asyncHandler = require("express-async-handler");
-const { response } = require('express');
-const { get } = require('mongoose');
+// const { response } = require('express');
+// const { get } = require('mongoose');
 
 
 const register = asyncHandler (async (req,res)=>{
