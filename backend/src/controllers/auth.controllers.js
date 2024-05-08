@@ -27,7 +27,7 @@ const register = asyncHandler (async (req,res)=>{
             })
         })
         .catch((error)=>{
-            res.status(500).json({error.error,})
+            res.status(500).json({error:error,})
         })
     })
 } catch(error){
@@ -36,6 +36,7 @@ const register = asyncHandler (async (req,res)=>{
         message: error.message
     })
 }
+})  
 
 
 const login = asyncHandler(async(req, res) =>{
@@ -81,7 +82,29 @@ const login = asyncHandler(async(req, res) =>{
 });
 
 
+const userProfile = asyncHandler(async(req,res,next)=>{
+    const {id} = req.params;
+
+    try{
+        const verifyUser = await userModel.findOne({ userId: ID})
+        if (!verifyUser){
+            return res.status(403).json({
+                message: "user not found",
+                success: false,
+            })
+        }else{
+            return res.status(200).json({
+                message: `user ${verifyUser.username}`,
+                success: true,
+            })
+        }
+    }
+    catch(error){
+        return res.status(401).json({
+            success: false,
+            message: error.message,
+        })
+    }
+});
 
 module.exports = { register,login,userProfile};
-
-
