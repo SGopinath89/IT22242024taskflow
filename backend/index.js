@@ -3,6 +3,7 @@ const express= require('express');
 const database= require('../backend/src/db/dbconfig.js');
 const authRoutes = require ('./src/routes/auth.router.js');
 const boardRoutes= require('../backend/src/routes/board.router.js')
+const sectionRoutes= require('../backend/src/routes/section.router.js')
 const app=express();
 require('dotenv').config()
 
@@ -15,6 +16,8 @@ database.connectDB();
 
 app.use('/api/auth',authRoutes);
 app.use('/api/boards',boardRoutes)
+app.use('/api/boards/:boardId/sections',sectionRoutes)
+
 
 
 app.listen(port,()=>{
