@@ -15,3 +15,5 @@ router.get('/favourites',tokenHandle,boardController.getFavourites)
 
 router.put('/favourites',tokenHandle,boardController.updateFavouritePosition)
 
+module.exports= router
+
