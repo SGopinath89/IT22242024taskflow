@@ -29,8 +29,23 @@ const updateSection=async(req,res)=>{
     }
 }
 
+const deleteSection= async(reqq,res)=>{
+    const {sectionId}= req.params
+    try {
+        await Section.findByIdAndDelete(sectionId)
+        await Task.deleteMany({section: sectionId})
+        res.status(200).json('Deleted')
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+            success: false
+        })
+    }
+}
+
 module.exports={
     createSection,
-    updateSection
+    updateSection,
+    deleteSection
 
 }
