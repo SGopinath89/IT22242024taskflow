@@ -136,3 +136,6 @@ const cardSchema = mongoose.Schema({
 		},
 	],
 });
+
+
+module.exports = mongoose.model('card', cardSchema);
