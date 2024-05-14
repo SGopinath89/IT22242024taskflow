@@ -2,8 +2,9 @@ const express= require('express');
 // const config = require('../backend/src/config/config.js');
 const database= require('../backend/src/db/dbconfig.js');
 const authRoutes = require ('./src/routes/auth.router.js');
-const boardRoutes= require('../backend/src/routes/board.router.js')
-const sectionRoutes= require('../backend/src/routes/section.router.js');
+const boardRoute= require('../backend/src/routes/board.router.js')
+// const boardRoutes= require('../backend/src/routes/board.router.js')
+// const sectionRoutes= require('../backend/src/routes/section.router.js');
 const { TokenExpiredError } = require('jsonwebtoken');
 const app=express();
 require('dotenv').config()
@@ -16,8 +17,8 @@ app.use(express.urlencoded({extended: false}));
 database.connectDB();
 
 app.use('/api/auth',authRoutes);
-app.use('/api/boards',boardRoutes)
-app.use('/api/boards/:boardId/sections',sectionRoutes)
+app.use('/board',boardRoute);
+
 
 
 

@@ -195,20 +195,43 @@
 
 // }
 
-const boardService = require('../Services/boardService');
+const boardService = require('../services/board.services.js' );
 
-const create = async (req, res) => {
-	// const { title } = req.body;
-	const { title, backgroundImageLink } = req.body;
-	if ((!title && !backgroundImageLink))
-		// if (!(title ))
-		return res.status(400).send({ errMessage: 'Title and/or image cannot be null' });
-	await boardService.create(req, (err, result) => {
-		if (err) return res.status(500).send(err);
-		result.__v = undefined;
-		return res.status(201).send(result);
-	});
-};
+// const create = async (req, res) => {
+// 	try {
+// 		const { title, backgroundImageLink } = req.body;
+
+// 		if (!title || !backgroundImageLink) {
+// 			return res.status(400).send({ message: 'Image Cannot be null' });
+// 		}
+		// await boardService.create(req, (err, result) => {
+		// 	if (error) return res.status(500).json(error.message);
+		// 	result.__v = undefined;
+		// 	return res.status(201).send(result);
+		// });
+// 	} catch (error) {
+// 		return res.status(500).json({ message: error.message });
+// 	}
+// };
+
+const create= async (req,res) => {
+	try {
+		
+		const {title,backgroundImageLink }=req.body;
+		if(!title || !backgroundImageLink){
+			return res.status(400).send({ message: 'Image Cannot be null' });		
+		}
+
+		const result = await boardService.create(req);
+    	result.__v = undefined; 
+		return res.status(201).json(result); 
+
+	} catch (error) {
+		return res.status(500).send({
+			message: error.message
+		})
+	}
+}
 
 const getAll = async (req, res) => {
 	const userId = req.user._id;
