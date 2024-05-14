@@ -3,7 +3,8 @@ const express= require('express');
 const database= require('../backend/src/db/dbconfig.js');
 const authRoutes = require ('./src/routes/auth.router.js');
 const boardRoutes= require('../backend/src/routes/board.router.js')
-const sectionRoutes= require('../backend/src/routes/section.router.js')
+const sectionRoutes= require('../backend/src/routes/section.router.js');
+const { TokenExpiredError } = require('jsonwebtoken');
 const app=express();
 require('dotenv').config()
 
@@ -23,4 +24,10 @@ app.use('/api/boards/:boardId/sections',sectionRoutes)
 app.listen(port,()=>{
     console.log(`Server is up on port ${port}`);
 });
+
+
+//todo
+//dashboard using react
+//teams 
+//file upload system
 

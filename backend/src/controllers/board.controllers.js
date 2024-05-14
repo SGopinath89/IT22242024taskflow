@@ -1,8 +1,10 @@
 const Board = require('../models/board.js')
 const Section = require('../models/section.js')
 const Task = require('../models/task.js')
+const User= require('../models/user.js')
 
 const createBoard = async(req,res)=>{
+
     try {
         const boardsCount = await Board.find().count()
         const board = await Board.create({

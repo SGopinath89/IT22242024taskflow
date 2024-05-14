@@ -5,7 +5,7 @@ const tokenHandle = require('../middleware/auth.middleware.js')
 const boardController = require('../controllers/board.controllers.js')
 
 
-router.post('/',tokenHandle,boardController.createBoard)
+router.post('/',boardController.createBoard)
 
 router.get('/',tokenHandle,boardController.getAll)
 

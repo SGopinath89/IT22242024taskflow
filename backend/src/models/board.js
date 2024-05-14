@@ -5,6 +5,7 @@ const { schemaOptions } = require('./modelOptions')
 const boardSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
+    type:String,
     ref: 'User',
     required: true
   },

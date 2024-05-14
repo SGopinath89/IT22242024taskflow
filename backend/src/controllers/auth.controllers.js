@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const userModel = require('../models/user.js');
-const {v4 : uuidv4} = require('uuid')
+// const {v4 : uuidv4} = require('uuid')
 const asyncHandler = require("express-async-handler");
 
 
@@ -9,10 +9,10 @@ const register = asyncHandler(async (req, res) => {
 
     const { username,password} = req.body;
     try {
-            const userId = uuidv4()
+            // const userId = uuidv4()
             bcrypt.hash(req.body.password, 10).then((hash) => {
                     const user = new userModel({
-                        userId: userId,
+                        // userId: userId,
                         username: username,
                         password: hash,
                     });
@@ -53,7 +53,8 @@ const login = asyncHandler(async (req, res) => {
                 let jwtToken = jwt.sign(
                     {
                         username: getUser.username,
-                        userId: getUser.userId
+                        userId : user._id
+                        // userId: getUser.userId
                     },
                     process.env.SECRET_KEY,
                     {
@@ -61,8 +62,8 @@ const login = asyncHandler(async (req, res) => {
                     }
                 )
                 return res.status(200).json({
-                    accessToken: jwtToken,
-                    userId: getUser.userId,
+                    accessToken: jwtToken
+                    // userId: getUser.userId,
                 })
             }
         })
@@ -76,10 +77,12 @@ const login = asyncHandler(async (req, res) => {
 
 
 const userProfile = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
+    // const { id } = req.params;
 
     try {
-        const verifyUser = await userModel.findOne({ userId: id })
+        user= userModel._id;
+        console.log(user)
+        const verifyUser = await userModel.findOne({ user })
         if (!verifyUser) {
             return res.status(403).json({
                 message: "user not found",
@@ -99,5 +102,9 @@ const userProfile = asyncHandler(async (req, res, next) => {
         })
     }
 });
+
+//update user profile (password)
+//delete user profile
+//logout user 
 
 module.exports = { register,login,userProfile};
