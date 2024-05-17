@@ -27,3 +27,6 @@ router.put('/:boardId/:listId/:cardId', cardController.update);
 router.post('/:boardId/:listId/:cardId/add-comment', cardController.addComment);
 router.put('/:boardId/:listId/:cardId/:commentId', cardController.updateComment);
 router.delete('/:boardId/:listId/:cardId/:commentId', cardController.deleteComment);
+
+
+module.exports = router;
