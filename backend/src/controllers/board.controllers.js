@@ -234,11 +234,24 @@ const create= async (req,res) => {
 }
 
 const getAll = async (req, res) => {
+	try {
 	const userId = req.user._id;
-	await boardService.getAll(userId, (err, result) => {
-		if (err) return res.status(400).send(err);
-		return res.status(200).send(result);
-	});
+	const board= await boardService.getAll(userId);
+
+	if(!board ){
+		return res.status(404).send({message:"No boards found for this user"})
+	}
+
+	return res.status(200).send(board);
+	} catch (error) {
+		return res.status(500).send({message: "An error occurred while fetching the boards.", error: error.message})
+	}
+	
+
+	// await boardService.getAll(userId, (err, result) => {
+	// 	if (err) return res.status(400).send(err);
+	// 	return res.status(200).send(result);
+	// });
 };
 
 const getById = async (req, res) => {
