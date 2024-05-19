@@ -461,3 +461,146 @@ const deleteChecklist = async (cardId, listId, boardId, checklistId, user, callb
 		return callback({ errMessage: 'Something went wrong', details: error.message });
 	}
 };
+
+const addChecklistItem = async (cardId, listId, boardId, user, checklistId, text, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to add item this checklist';
+		}
+
+		card.checklists = card.checklists.map((list) => {
+			if (list._id.toString() == checklistId.toString()) {
+				list.items.push({ text: text });
+			}
+			return list;
+		});
+		await card.save();
+
+		let checklistItemId = '';
+		card.checklists = card.checklists.map((list) => {
+			if (list._id.toString() == checklistId.toString()) {
+				checklistItemId = list.items[list.items.length - 1]._id;
+			}
+			return list;
+		});
+		return callback(false, { checklistItemId: checklistItemId });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const setChecklistItemCompleted = async (
+	cardId,
+	listId,
+	boardId,
+	user,
+	checklistId,
+	checklistItemId,
+	completed,
+	callback
+) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to set complete of this checklist item';
+		}
+		let clItem = '';
+	
+		card.checklists = card.checklists.map((list) => {
+			if (list._id.toString() == checklistId.toString()) {
+				list.items = list.items.map((item) => {
+					if (item._id.toString() === checklistItemId) {
+						item.completed = completed;
+						clItem = item.text;
+					}
+					return item;
+				});
+			}
+			return list;
+		});
+		await card.save();
+
+		
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: completed
+				? `completed '${clItem}' on ${card.title}`
+				: `marked as uncompleted to '${clItem}' on ${card.title}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const setChecklistItemText = async (cardId, listId, boardId, user, checklistId, checklistItemId, text, callback) => {
+	try {
+
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to set text of this checklist item';
+		}
+
+		card.checklists = card.checklists.map((list) => {
+			if (list._id.toString() == checklistId.toString()) {
+				list.items = list.items.map((item) => {
+					if (item._id.toString() === checklistItemId) {
+						item.text = text;
+					}
+					return item;
+				});
+			}
+			return list;
+		});
+		await card.save();
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const deleteChecklistItem = async (cardId, listId, boardId, user, checklistId, checklistItemId, callback) => {
+	try {
+
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to delete this checklist item';
+		}
+
+		card.checklists = card.checklists.map((list) => {
+			if (list._id.toString() == checklistId.toString()) {
+				list.items = list.items.filter((item) => item._id.toString() !== checklistItemId);
+			}
+			return list;
+		});
+		await card.save();
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+
