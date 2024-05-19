@@ -395,3 +395,40 @@ const updateLabelSelection = async (cardId, listId, boardId, labelId, user, sele
 		return callback({ errMessage: 'Something went wrong', details: error.message });
 	}
 };
+
+const createChecklist = async (cardId, listId, boardId, user, title, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to add Checklist this card';
+		}
+
+		
+		card.checklists.push({
+			title: title,
+		});
+		await card.save();
+
+		const checklistId = card.checklists[card.checklists.length - 1]._id;
+
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `added '${title}' to ${card.title}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { checklistId: checklistId });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+
