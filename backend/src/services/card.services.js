@@ -219,3 +219,40 @@ const deleteComment = async (cardId, listId, boardId, commentId, user, callback)
 		return callback({ errMessage: 'Something went wrong', details: error.message });
 	}
 };
+
+const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+		const member = await userModel.findById(memberId);
+
+		
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to add member this card';
+		}
+
+		
+		card.members.unshift({
+			user: member._id,
+			name: member.name,
+			color: member.color,
+		});
+		await card.save();
+
+		
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `added '${member.name}' to ${card.title}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { message: 'success' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
