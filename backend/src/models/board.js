@@ -52,8 +52,7 @@ const boardSchema = mongoose.Schema(
 		},
 		backgroundImageLink: {
 			type: String,
-			// required: true,
-			required: false,
+			required: true,
 		},
 		activity: [
 			{

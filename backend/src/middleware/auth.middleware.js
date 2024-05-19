@@ -52,7 +52,7 @@ const unless = require('express-unless');
 
 const generateToken= (id,email)=>{
     const token= jwt.sign( {id,email}, process.env.JWT_SECRET,{
-        expiresIn: '2h',
+        expiresIn: process.env.TOKEN_EXPIRE_TIME,
     });
     return token.toString();
 }
