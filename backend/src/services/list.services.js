@@ -155,3 +155,12 @@ const updateListTitle = async (listId, boardId, user, title, callback) => {
 		return callback({ errMessage: 'Something went wrong', details: error.message });
 	}
 };
+
+module.exports = {
+	create,
+	getAll,
+	deleteById,
+	updateCardOrder,
+	updateListOrder,
+	updateListTitle,
+};
