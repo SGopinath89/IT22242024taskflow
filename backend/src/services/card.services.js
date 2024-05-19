@@ -603,4 +603,26 @@ const deleteChecklistItem = async (cardId, listId, boardId, user, checklistId, c
 	}
 };
 
+const updateStartDueDates = async (cardId, listId, boardId, user, startDate, dueDate, dueTime, callback) => {
+	try {
+
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update date of this card';
+		}
+
+		card.date.startDate = startDate;
+		card.date.dueDate = dueDate;
+		card.date.dueTime = dueTime;
+		if (dueDate === null) card.date.completed = false;
+		await card.save();
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
 
