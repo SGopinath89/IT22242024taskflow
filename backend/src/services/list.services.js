@@ -134,3 +134,24 @@ const updateListOrder = async (boardId, sourceIndex, destinationIndex, listId, c
 		return callback({ errMessage: 'Something went wrong', details: error.message });
 	}
 };
+
+const updateListTitle = async (listId, boardId, user, title, callback) => {
+	try {
+		
+		const board = await boardModel.findById(boardId);
+		const list = await listModel.findById(listId.toString());
+		
+		const validate = board.lists.filter((list) => list.id === listId);
+		if (!validate) return callback({ errMessage: 'List or board informations are wrong' });
+		
+		if (!user.boards.filter((board) => board === boardId))
+			return callback({ errMessage: 'You cannot delete a list that does not hosted by your boards' });
+
+		list.title = title;
+		await list.save();
+
+		return callback(false, { message: 'Success' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
