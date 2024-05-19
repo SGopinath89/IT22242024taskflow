@@ -36,5 +36,34 @@ const create = async (title, listId, boardId, user, callback) => {
 	}
 };
 
+const deleteById = async (cardId, listId, boardId, user, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+		
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update this card';
+		}
 
+		const result = await cardModel.findByIdAndDelete(cardId);
+
+		list.cards = list.cards.filter((tempCard) => tempCard.toString() !== cardId);
+		await list.save();
+		
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `deleted ${result.title} from ${list.title}`,
+			color: user.color,
+		});
+		await board.save();
+
+		return callback(false, { message: 'Success' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
 
