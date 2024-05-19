@@ -67,3 +67,24 @@ const deleteById = async (cardId, listId, boardId, user, callback) => {
 	}
 };
 
+
+const getCard = async (cardId, listId, boardId, user, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update this card';
+		}
+
+		let returnObject = { ...card._doc, listTitle: list.title, listId: listId, boardId: boardId };
+
+		return callback(false, returnObject);
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
