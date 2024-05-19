@@ -88,3 +88,26 @@ const getCard = async (cardId, listId, boardId, user, callback) => {
 	}
 };
 
+const update = async (cardId, listId, boardId, user, updatedObj, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update this card';
+		}
+
+		
+		await card.updateOne(updatedObj);
+		await card.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
