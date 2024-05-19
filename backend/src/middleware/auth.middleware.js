@@ -47,11 +47,12 @@
 
 const userModel= require("../models/user.js")
 const jwt = require('jsonwebtoken');
+const unless = require('express-unless');
 
 
 const generateToken= (id,email)=>{
     const token= jwt.sign( {id,email}, process.env.JWT_SECRET,{
-        expiresIn: process.env.TOKEN_EXPIRE_TIME,
+        expiresIn: '2h',
     });
     return token.toString();
 }
@@ -64,7 +65,7 @@ const verifyToken=async(req,res,next)=>{
         const header= req.headers["authorization"];
         const token = header.split(" ")[1];
 
-        await jwt.verify(token,process.env.JWT_SECRET,async(err,verifiedToken)=>{
+        await jwt.verify(token,process.env.JWT_SECRET,async(error,verifiedToken)=>{
             if(error){
                 return res.status(401).send({message:"Authorization token invalid", details:error.message});
             }
@@ -77,6 +78,8 @@ const verifyToken=async(req,res,next)=>{
         return res.status(500).send({message:"Authentication Failed",details:error.message})
     }
 }
+
+verifyToken.unless = unless;
 
 module.exports={
     generateToken,

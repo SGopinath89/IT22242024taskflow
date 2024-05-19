@@ -16,31 +16,41 @@ const login= async(email,callback)=>{
         if(!user){
             return callback({message: "Invalid Email/Password", details:error.message});
         }
-        return callback(false,{...user.toJson()});
+        return callback(false,{...user.toJSON()});
     } catch (error) {
         return callback({message:error.message});
     }
 }
 
-const getUser= async(id, callback)=>{
+// const getUser= async(id, callback)=>{
+//     try {
+//         let user= await userModel.findById({id});
+//         if(!user){
+//             return callback({message: "User not found", details:error.message});
+//         }
+//         return callback(false,{...user.toJSON()});
+//     } catch (error) {
+//         return callback({message:error.message});
+//     }
+// }
+
+const getUser = async (userId) => {
     try {
-        let user= await userModel.findById({id});
-        if(!user){
-            return callback({message: "User not found", details:error.message});
-        }
-        return callback(false,{...user.toJson()});
+        // Fetch user details from the database
+        const user = await userModel.findById(userId).select('-password -__v'); // Exclude sensitive fields
+        return user;
     } catch (error) {
-        return callback({message:error.message});
+        throw new Error('Error fetching user details');
     }
-}
+};
 
 const getUserWithEmail= async(email, callback)=>{
     try {
-        let user= await userModel.findByOne({email});
+        let user= await userModel.findOne({email});
         if(!user){
             return callback({message: "Email not found ", details:error.message});
         }
-        return callback(false,{...user.toJson()});
+        return callback(false,{...user.toJSON()});
     } catch (error) {
         return callback({message:error.message});
     }

@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const userService = require("../services/user.services.js");
 const auth = require("../middleware/auth.middleware.js");
 const user = require("../models/user.js");
@@ -42,18 +42,43 @@ const login =async(req,res)=>{
     });
 };
 
-const getUser= async(req,res)=>{
-    const userId= req.user.id;
-    await userService.getUser(userId,(error,result)=>{
-        if(error)
-            return res.status(404).send({message:error.message})
+// const getUser= async(req,res)=>{
+//     const{id}= req.params;
+//         await userService.getUser(id,(error,result)=>{
+//         if(error)
+//             return res.status(404).send({message:error.message})
 
-        result.password=undefined;
-        result.__v= undefined;
+//         result.password=undefined;
+//         result.__v= undefined;
 
-        return res.status(200).send(result);
-    });
+//         return res.status(200).send(result);
+//     });
+// };
+
+const getUser = async (req, res) => {
+    try {
+        // const userId = req.user.id;
+        const{id}= req.params;
+        const user = await userService.getUser(id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const sanitizedUser = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            color: user.color
+        };
+
+        return res.status(200).json(sanitizedUser);
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        return res.status(500).json({ message: "An error occurred while fetching user details." });
+    }
 };
+
 
 const getUserwithMail= async(req,res)=>{
     const {email}= req.body;
