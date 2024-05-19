@@ -204,11 +204,11 @@ const boardService = require('../services/board.services.js' );
 // 		if (!title || !backgroundImageLink) {
 // 			return res.status(400).send({ message: 'Image Cannot be null' });
 // 		}
-		// await boardService.create(req, (err, result) => {
-		// 	if (error) return res.status(500).json(error.message);
-		// 	result.__v = undefined;
-		// 	return res.status(201).send(result);
-		// });
+// 		await boardService.create(req, (error, result) => {
+// 			if (error) return res.status(500).json({message:error.message});
+// 			result.__v = undefined;
+// 			return res.status(201).send(result);
+// 		});
 // 	} catch (error) {
 // 		return res.status(500).json({ message: error.message });
 // 	}
@@ -218,40 +218,34 @@ const create= async (req,res) => {
 	try {
 		
 		const {title,backgroundImageLink }=req.body;
-		if(!title || !backgroundImageLink){
-			return res.status(400).send({ message: 'Image Cannot be null' });		
+		if(!(title && backgroundImageLink)){
+			return res.status(400).send({ message: 'Image or title  Cannot be null' });		
 		}
 
-		const result = await boardService.create(req);
-    	result.__v = undefined; 
-		return res.status(201).json(result); 
-
+		await boardService.create(req, (error, result) => {
+			if (error) 
+				return res.status(500).send({message:error.message});
+					result.__v = undefined;
+					return res.status(201).send(result);
+		});
 	} catch (error) {
-		return res.status(500).send({
-			message: error.message
-		})
+		return res.status(500).send({message: error.message})
 	}
 }
 
 const getAll = async (req, res) => {
 	try {
 	const userId = req.user._id;
-	const board= await boardService.getAll(userId);
-
-	if(!board ){
-		return res.status(404).send({message:"No boards found for this user"})
-	}
-
-	return res.status(200).send(board);
+	await boardService.getAll(userId, (err, result) => {
+		if (err) return res.status(400).send(err);
+		return res.status(200).send(result);
+	});
 	} catch (error) {
 		return res.status(500).send({message: "An error occurred while fetching the boards.", error: error.message})
 	}
 	
 
-	// await boardService.getAll(userId, (err, result) => {
-	// 	if (err) return res.status(400).send(err);
-	// 	return res.status(200).send(result);
-	// });
+	
 };
 
 const getById = async (req, res) => {
@@ -281,7 +275,7 @@ const getActivityById = async (req, res) => {
 };
 
 const updateBoardTitle = async (req, res) => {
-	// Validate whether params.id is in the user's boards or not
+
 	const validate = req.user.boards.filter((board) => board === req.params.id);
 	if (!validate)
 		return res
@@ -289,7 +283,7 @@ const updateBoardTitle = async (req, res) => {
 			.send({ errMessage: 'You can not change title of this board, you are not a member or owner!' });
 	const { boardId } = req.params;
 	const { title } = req.body;
-	// Call the service
+
 	await boardService.updateBoardTitle(boardId, title, req.user, (err, result) => {
 		if (err) return res.status(400).send(err);
 		return res.status(200).send(result);
@@ -297,7 +291,7 @@ const updateBoardTitle = async (req, res) => {
 };
 
 const updateBoardDescription = async (req, res) => {
-	// Validate whether params.id is in the user's boards or not
+
 	const validate = req.user.boards.filter((board) => board === req.params.id);
 	if (!validate)
 		return res
@@ -305,7 +299,7 @@ const updateBoardDescription = async (req, res) => {
 			.send({ errMessage: 'You can not change description of this board, you are not a member or owner!' });
 	const { boardId } = req.params;
 	const { description } = req.body;
-	// Call the service
+
 	await boardService.updateBoardDescription(boardId, description, req.user, (err, result) => {
 		if (err) return res.status(400).send(err);
 		return res.status(200).send(result);
@@ -329,17 +323,15 @@ const updateBackground = async (req, res) => {
 };
 
 const addMember = async (req, res) => {
-	// Validate whether params.id is in the user's boards or not
 	const validate = req.user.boards.filter((board) => board === req.params.id);
 	if (!validate)
-		return res
-			.status(400)
-			.send({ errMessage: 'You can not add member to this board, you are not a member or owner!' });
+		return res.status(400).send({ errMessage: 'You can not add member to this board, you are not a member or owner!' });
+
 	const { boardId } = req.params;
 	const { members } = req.body;
-	// Call the service
-	await boardService.addMember(boardId, members, req.user, (err, result) => {
-		if (err) return res.status(400).send(err);
+	
+	await boardService.addMember(boardId, members, req.user, (error, result) => {
+		if (error) return res.status(400).send({message:error.message});
 		return res.status(200).send(result);
 	});
 };
