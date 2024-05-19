@@ -42,22 +42,8 @@ const login =async(req,res)=>{
     });
 };
 
-// const getUser= async(req,res)=>{
-//     const{id}= req.params;
-//         await userService.getUser(id,(error,result)=>{
-//         if(error)
-//             return res.status(404).send({message:error.message})
-
-//         result.password=undefined;
-//         result.__v= undefined;
-
-//         return res.status(200).send(result);
-//     });
-// };
-
 const getUser = async (req, res) => {
     try {
-        // const userId = req.user.id;
         const{id}= req.params;
         const user = await userService.getUser(id);
 
@@ -74,26 +60,28 @@ const getUser = async (req, res) => {
 
         return res.status(200).json(sanitizedUser);
     } catch (error) {
-        console.error('Error fetching user details:', error);
         return res.status(500).json({ message: "An error occurred while fetching user details." });
     }
 };
 
-
 const getUserwithMail= async(req,res)=>{
-    const {email}= req.body;
-    await userService.getUserWithEmail(email,(error,result)=>{
-        if(error)
-            return res.status(404).send({message:error.message});
-
-        const displayData={
-            name:result.name,
-            surname:result.surname,
-            color:result.color,
-            email : result.email
-        };
-        return res.status(200).send(displayData);
-    })
+    try {
+        const {email}= req.body;
+        await userService.getUserWithEmail(email,(error,result)=>{
+            if(error)
+                return res.status(404).send({message:error.message});
+    
+            const displayData={
+                name:result.name,
+                surname:result.surname,
+                color:result.color,
+                email : result.email
+            };
+            return res.status(200).send(displayData);
+        })
+    } catch (error) {
+        return res.status(500).json({ message: "An error occurred while fetching user details." });    }
+    
 }
 
 module.exports={

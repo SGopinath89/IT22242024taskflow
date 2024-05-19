@@ -36,8 +36,7 @@ const login= async(email,callback)=>{
 
 const getUser = async (userId) => {
     try {
-        // Fetch user details from the database
-        const user = await userModel.findById(userId).select('-password -__v'); // Exclude sensitive fields
+        const user = await userModel.findById(userId).select('-password -__v'); 
         return user;
     } catch (error) {
         throw new Error('Error fetching user details');
