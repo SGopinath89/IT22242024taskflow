@@ -29,4 +29,22 @@ const create = async (model, user, callback) => {
 	}
 };
 
+const getAll = async (boardId, callback) => {
+	try {
+		//get lists whose owner id equals to boardId param
+		let lists = await listModel
+			.find({ owner: { $in: boardId } })
+			.populate({ path: 'cards' }) /* { path: 'cards', select: 'title' }) */
+			.exec();
 
+		// Order the lists
+		const board = await boardModel.findById(boardId);
+		let responseObject = board.lists.map((listId) => {
+			return lists.filter((listObject) => listObject._id.toString() === listId.toString())[0];
+		});
+
+		return callback(false, responseObject);
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
