@@ -626,3 +626,176 @@ const updateStartDueDates = async (cardId, listId, boardId, user, startDate, due
 	}
 };
 
+
+
+const updateDateCompleted = async (cardId, listId, boardId, user, completed, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update date of this card';
+		}
+
+		card.date.completed = completed;
+
+		await card.save();
+
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `marked the due date on ${card.title} ${completed ? 'complete' : 'uncomplete'}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const addAttachment = async (cardId, listId, boardId, user, link, name, callback) => {
+	try {
+
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update date of this card';
+		}
+
+		
+		const validLink = new RegExp(/^https?:\/\//).test(link) ? link : 'http://' + link;
+
+		card.attachments.push({ link: validLink, name: name });
+		await card.save();
+
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `attached ${validLink} to ${card.title}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { attachmentId: card.attachments[card.attachments.length - 1]._id.toString() });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const deleteAttachment = async (cardId, listId, boardId, user, attachmentId, callback) => {
+	try {
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to delete this attachment';
+		}
+
+		let attachmentObj = card.attachments.filter(
+			(attachment) => attachment._id.toString() === attachmentId.toString()
+		);
+
+		card.attachments = card.attachments.filter(
+			(attachment) => attachment._id.toString() !== attachmentId.toString()
+		);
+		await card.save();
+
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `deleted the ${attachmentObj[0].link} attachment from ${card.title}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const updateAttachment = async (cardId, listId, boardId, user, attachmentId, link, name, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update attachment of this card';
+		}
+
+		card.attachments = card.attachments.map((attachment) => {
+			if (attachment._id.toString() === attachmentId.toString()) {
+				attachment.link = link;
+				attachment.name = name;
+			}
+			return attachment;
+		});
+
+		await card.save();
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const updateCover = async (cardId, listId, boardId, user, color, isSizeOne, callback) => {
+	try {
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update attachment of this card';
+		}
+
+		card.cover.color = color;
+		card.cover.isSizeOne = isSizeOne;
+
+		await card.save();
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+module.exports = {
+	create,
+	update,
+	getCard,
+	addComment,
+	deleteById,
+	updateComment,
+	deleteComment,
+	addMember,
+	deleteMember,
+	createLabel,
+	updateLabel,
+	deleteLabel,
+	updateLabelSelection,
+	createChecklist,
+	deleteChecklist,
+	addChecklistItem,
+	setChecklistItemCompleted,
+	setChecklistItemText,
+	deleteChecklistItem,
+	updateStartDueDates,
+	updateDateCompleted,
+	addAttachment,
+	deleteAttachment,
+	updateAttachment,
+	updateCover,
+};
