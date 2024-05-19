@@ -79,3 +79,41 @@ const deleteById = async (listId, boardId, user, callback) => {
 		return callback({ errMessage: 'Something went wrong', details: error.message });
 	}
 };
+
+const updateCardOrder = async (boardId, sourceId, destinationId, destinationIndex, cardId, user, callback) => {
+	try {
+		
+		const board = await boardModel.findById(boardId);
+		let validate = board.lists.filter((list) => list.id === sourceId);
+		const validate2 = board.lists.filter((list) => list.id === destinationId);
+		if (!validate || !validate2) return callback({ errMessage: 'List or board informations are wrong' });
+
+		const sourceList = await listModel.findById(sourceId);
+		validate = sourceList.cards.filter((card) => card._id.toString() === cardId);
+		if (!validate) return callback({ errMessage: 'List or card informations are wrong' });
+
+		sourceList.cards = sourceList.cards.filter((card) => card._id.toString() !== cardId);
+		await sourceList.save();
+
+		const card = await cardModel.findById(cardId);
+		const destinationList = await listModel.findById(destinationId);
+		const temp = Array.from(destinationList.cards);
+		temp.splice(destinationIndex, 0, cardId);
+		destinationList.cards = temp;
+		await destinationList.save();
+
+		if (sourceId !== destinationId)
+			card.activities.unshift({
+				text: `moved this card from ${sourceList.title} to ${destinationList.title}`,
+				userName: user.name,
+				color: user.color,
+			});
+
+		card.owner = destinationId;
+		await card.save();
+
+		return callback(false, { message: 'Success' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
