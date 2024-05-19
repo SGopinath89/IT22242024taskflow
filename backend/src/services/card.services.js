@@ -292,3 +292,106 @@ const deleteMember = async (cardId, listId, boardId, user, memberId, callback) =
 	}
 };
 
+const createLabel = async (cardId, listId, boardId, user, label, callback) => {
+	try {
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to add label this card';
+		}
+
+		card.labels.unshift({
+			text: label.text,
+			color: label.color,
+			backcolor: label.backColor,
+			selected: true,
+		});
+		await card.save();
+
+		const labelId = card.labels[0]._id;
+
+		return callback(false, { labelId: labelId });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const updateLabel = async (cardId, listId, boardId, labelId, user, label, callback) => {
+	try {
+	
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update this card';
+		}
+
+		card.labels = card.labels.map((item) => {
+			if (item._id.toString() === labelId.toString()) {
+				item.text = label.text;
+				item.color = label.color;
+				item.backColor = label.backColor;
+			}
+			return item;
+		});
+		await card.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const deleteLabel = async (cardId, listId, boardId, labelId, user, callback) => {
+	try {
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to delete this label';
+		}
+
+	
+		card.labels = card.labels.filter((label) => label._id.toString() !== labelId.toString());
+		await card.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
+
+const updateLabelSelection = async (cardId, listId, boardId, labelId, user, selected, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+
+		
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to update this card';
+		}
+
+		
+		card.labels = card.labels.map((item) => {
+			if (item._id.toString() === labelId.toString()) {
+				item.selected = selected;
+			}
+			return item;
+		});
+		await card.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
