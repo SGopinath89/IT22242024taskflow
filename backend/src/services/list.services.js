@@ -49,3 +49,33 @@ const getAll = async (boardId, callback) => {
 	}
 };
 
+const deleteById = async (listId, boardId, user, callback) => {
+	try {
+		
+		const board = await boardModel.findById(boardId);
+
+		const validate = board.lists.filter((list) => list.id === listId);
+		if (!validate) return callback({ errMessage: 'List or board informations are wrong' });
+
+		if (!user.boards.filter((board) => board === boardId))
+			return callback({ errMessage: 'You cannot delete a list that does not hosted by your boards' });
+
+		const result = await listModel.findByIdAndDelete(listId);
+
+		board.lists = board.lists.filter((list) => list.toString() !== listId);
+
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `deleted ${result.title} from this board`,
+			color: user.color,
+		});
+		board.save();
+
+		await cardModel.deleteMany({ owner: listId });
+
+		return callback(false, result);
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
