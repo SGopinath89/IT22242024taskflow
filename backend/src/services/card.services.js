@@ -431,4 +431,33 @@ const createChecklist = async (cardId, listId, boardId, user, title, callback) =
 	}
 };
 
+const deleteChecklist = async (cardId, listId, boardId, checklistId, user, callback) => {
+	try {
+		
+		const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
 
+		
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			errMessage: 'You dont have permission to delete this checklist';
+		}
+		let cl = card.checklists.filter((l) => l._id.toString() === checklistId.toString());
+		
+		card.checklists = card.checklists.filter((list) => list._id.toString() !== checklistId.toString());
+		await card.save();
+
+		board.activity.unshift({
+			user: user._id,
+			name: user.name,
+			action: `removed '${cl.title}' from ${card.title}`,
+			color: user.color,
+		});
+		board.save();
+
+		return callback(false, { message: 'Success!' });
+	} catch (error) {
+		return callback({ errMessage: 'Something went wrong', details: error.message });
+	}
+};
