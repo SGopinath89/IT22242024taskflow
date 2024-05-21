@@ -10,7 +10,7 @@ const create = async (title, listId, boardId, user, callback) => {
 		const board = await boardModel.findById(boardId);
 
 		const validate = await helperMethods.validateCardOwners(null, list, board, user, true);
-		if (!validate) return callback({ errMessage: 'You dont have permission to add card to this list or board' });
+		if (!validate) return callback({ errMessage: 'You are not authorized to access this list or board' });
 
 		const card = await cardModel({ title: title });
 		card.owner = listId;
@@ -32,7 +32,7 @@ const create = async (title, listId, boardId, user, callback) => {
 		const result = await listModel.findById(listId).populate({ path: 'cards' }).exec();
 		return callback(false, result);
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error while creating a card', details: error.message });
 	}
 };
 
@@ -45,7 +45,7 @@ const deleteById = async (cardId, listId, boardId, user, callback) => {
 		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You dont have permission to update this card';
+			errMessage: 'You are not authorized to access this list or board';
 		}
 
 		const result = await cardModel.findByIdAndDelete(cardId);
@@ -63,7 +63,7 @@ const deleteById = async (cardId, listId, boardId, user, callback) => {
 
 		return callback(false, { message: 'Success' });
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error While Deleting a Card', details: error.message });
 	}
 };
 
