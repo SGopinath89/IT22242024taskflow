@@ -28,5 +28,13 @@ const deleteById= async(req,res)=>{
 }
 
 const getCard= async(req,res)=>{
-    
+    const user= req.user;
+    const {boardId, listId, cardId}= req.params;
+
+    await cardServices.getCard(cardId,listId,boardId,user,(error,result)=>{
+        if(error)
+            return res.status(500).send({message:error.message})
+
+        return res.status(200).send(result);
+    })
 }

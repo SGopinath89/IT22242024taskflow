@@ -67,7 +67,6 @@ const deleteById = async (cardId, listId, boardId, user, callback) => {
 	}
 };
 
-
 const getCard = async (cardId, listId, boardId, user, callback) => {
 	try {
 		
@@ -77,14 +76,14 @@ const getCard = async (cardId, listId, boardId, user, callback) => {
 
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You dont have permission to update this card';
+			errMessage: 'You are not authorized to access this list or board';
 		}
 
 		let returnObject = { ...card._doc, listTitle: list.title, listId: listId, boardId: boardId };
 
 		return callback(false, returnObject);
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error while fetching card details', details: error.message });
 	}
 };
 
