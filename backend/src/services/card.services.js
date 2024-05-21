@@ -4,6 +4,8 @@ const boardModel = require('../models/board.js');
 const userModel = require('../models/user.js');
 const helperMethods = require('./helperMethod.js');
 
+
+//Card Services
 const create = async (title, listId, boardId, user, callback) => {
 	try {
 		const list = await listModel.findById(listId);
@@ -45,7 +47,7 @@ const deleteById = async (cardId, listId, boardId, user, callback) => {
 		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You are not authorized to access this list or board';
+			return res.status(400).send({ message: 'You are not authorized to access the  board' });
 		}
 
 		const result = await cardModel.findByIdAndDelete(cardId);
@@ -76,7 +78,7 @@ const getCard = async (cardId, listId, boardId, user, callback) => {
 
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You are not authorized to access this list or board';
+			return res.status(400).send({ message: 'You are not authorized to access the Card' });
 		}
 
 		let returnObject = { ...card._doc, listTitle: list.title, listId: listId, boardId: boardId };
@@ -97,7 +99,7 @@ const update = async (cardId, listId, boardId, user, updatedObj, callback) => {
 		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You are not authorized to access this list or board';
+			return res.status(400).send({ message: 'You are not authorized to update the card' });
 		}
 
 		
@@ -110,6 +112,9 @@ const update = async (cardId, listId, boardId, user, updatedObj, callback) => {
 	}
 };
 
+
+
+//Comment Services
 const addComment = async (cardId, listId, boardId, user, body, callback) => {
 	try {
 		
@@ -120,7 +125,7 @@ const addComment = async (cardId, listId, boardId, user, body, callback) => {
 		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You dont have permission to update this card';
+			return res.status(400).send({ message: 'You are not authorized to access the card' });
 		}
 
 		
@@ -145,7 +150,7 @@ const addComment = async (cardId, listId, boardId, user, body, callback) => {
 
 		return callback(false, card.activities);
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error adding a comment to the card', details: error.message });
 	}
 };
 
