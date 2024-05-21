@@ -1,8 +1,17 @@
-const cardController = require('../controllers/card.controller');
+const cardController = require('../controllers/card.controller.js'); //Card controllers
+const commentController= require('../controllers/comment.controller.js') //Comment Controllers
 const express = require('express');
 const router = express.Router();
 
+//Card Controllers
+router.post('/create', cardController.create);
+router.get('/:boardId/:listId/:cardId', cardController.getCard);
+router.put('/:boardId/:listId/:cardId', cardController.update);
 router.delete('/:boardId/:listId/:cardId/delete-card', cardController.deleteById);
+
+
+
+
 router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
 router.put('/:boardId/:listId/:cardId/:attachmentId/update-attachment', cardController.updateAttachment);
 router.delete('/:boardId/:listId/:cardId/:attachmentId/delete-attachment', cardController.deleteAttachment);
@@ -21,9 +30,7 @@ router.put('/:boardId/:listId/:cardId/:labelId/update-label', cardController.upd
 router.post('/:boardId/:listId/:cardId/create-label', cardController.createLabel);
 router.post('/:boardId/:listId/:cardId/add-member', cardController.addMember);
 router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', cardController.deleteMember);
-router.post('/create', cardController.create);
-router.get('/:boardId/:listId/:cardId', cardController.getCard);
-router.put('/:boardId/:listId/:cardId', cardController.update);
+
 router.post('/:boardId/:listId/:cardId/add-comment', cardController.addComment);
 router.put('/:boardId/:listId/:cardId/:commentId', cardController.updateComment);
 router.delete('/:boardId/:listId/:cardId/:commentId', cardController.deleteComment);

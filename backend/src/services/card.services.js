@@ -97,7 +97,7 @@ const update = async (cardId, listId, boardId, user, updatedObj, callback) => {
 		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You dont have permission to update this card';
+			errMessage: 'You are not authorized to access this list or board';
 		}
 
 		
@@ -106,7 +106,7 @@ const update = async (cardId, listId, boardId, user, updatedObj, callback) => {
 
 		return callback(false, { message: 'Success!' });
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error while updating card', details: error.message });
 	}
 };
 

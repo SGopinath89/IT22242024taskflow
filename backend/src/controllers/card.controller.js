@@ -38,3 +38,26 @@ const getCard= async(req,res)=>{
         return res.status(200).send(result);
     })
 }
+
+const updateCard= async(req,res)=>{
+    const user= req.user;
+    const {boardId, listId, cardId}= req.params;
+
+    await cardServices.update(cardId,listId,boardId,user,req.body,(error,result)=>{
+        if(error)
+            return res.status(500).send({message:error.message})
+
+        return res.status(200).send(result);
+    })
+}
+
+
+
+
+
+module.exports={
+    create,
+    deleteById,
+    getCard,
+    updateCard
+}
