@@ -164,7 +164,7 @@ const updateComment = async (cardId, listId, boardId, commentId, user, body, cal
         
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You dont have permission to update this card';
+			return res.status(400).send({ message: 'You are not authorized to access the card' });
 		}
 
 		card.activities = card.activities.map((activity) => {
@@ -192,7 +192,7 @@ const updateComment = async (cardId, listId, boardId, commentId, user, body, cal
 
 		return callback(false, { message: 'Success!' });
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error Updating comment ', details: error.message });
 	}
 };
 
