@@ -24,8 +24,21 @@ const updateComment= async(req,res)=>{
     }) 
 }
 
+const deleteComment= async(req,res)=>{
+    const user= req.user;
+    const {boardId, listId, cardId,commentId}= req.params;
+
+    await cardServices.deleteComment(cardId,listId,boardId,commentId,user,req.body,(error,result)=>{
+        if(error)
+            return res.status(500).send({message:error.message})
+
+        return res.status(200).send(result);
+    }) 
+}
+
 
 module.exports={
     addComment,
-    updateComment
+    updateComment,
+    deleteComment
 }

@@ -204,7 +204,7 @@ const deleteComment = async (cardId, listId, boardId, commentId, user, callback)
 
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			errMessage: 'You dont have permission to update this card';
+			return res.status(400).send({ message: 'You are not authorized to access the card' });
 		}
 
 		card.activities = card.activities.filter((activity) => activity._id.toString() !== commentId.toString());
@@ -220,10 +220,12 @@ const deleteComment = async (cardId, listId, boardId, commentId, user, callback)
 
 		return callback(false, { message: 'Success!' });
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error Deleting a comment', details: error.message });
 	}
 };
 
+
+//Members Services
 const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
 	try {
 		

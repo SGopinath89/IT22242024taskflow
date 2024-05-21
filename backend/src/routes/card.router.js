@@ -3,13 +3,16 @@ const commentController= require('../controllers/comment.controller.js') //Comme
 const express = require('express');
 const router = express.Router();
 
-//Card Controllers
+//Card Routes
 router.post('/create', cardController.create);
 router.get('/:boardId/:listId/:cardId', cardController.getCard);
 router.put('/:boardId/:listId/:cardId', cardController.update);
 router.delete('/:boardId/:listId/:cardId/delete-card', cardController.deleteById);
 
-
+//Comment Routes
+router.post('/:boardId/:listId/:cardId/add-comment', commentController.addComment);
+router.put('/:boardId/:listId/:cardId/:commentId', commentController.updateComment);
+router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteComment);
 
 
 router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
@@ -31,9 +34,7 @@ router.post('/:boardId/:listId/:cardId/create-label', cardController.createLabel
 router.post('/:boardId/:listId/:cardId/add-member', cardController.addMember);
 router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', cardController.deleteMember);
 
-router.post('/:boardId/:listId/:cardId/add-comment', cardController.addComment);
-router.put('/:boardId/:listId/:cardId/:commentId', cardController.updateComment);
-router.delete('/:boardId/:listId/:cardId/:commentId', cardController.deleteComment);
+
 
 
 module.exports = router;
