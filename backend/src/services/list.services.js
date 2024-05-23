@@ -10,7 +10,7 @@ const create = async (model, user, callback) => {
 		const newList = await tempList.save();
 
 		const ownerBoard = await boardModel.findById(model.owner);
-       
+		
 		ownerBoard.lists.push(newList.id);
 
 		ownerBoard.activity.unshift({
