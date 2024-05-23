@@ -51,6 +51,25 @@ const updateCard= async(req,res)=>{
     })
 }
 
+const updateCover = async (req, res) => {
+	const user = req.user;
+	const { boardId, listId, cardId } = req.params;
+	const {color, isSizeOne} = req.body;
+	
+
+	await cardServices.updateCover(
+		cardId,
+		listId,
+		boardId,
+		user,
+		color,
+		isSizeOne,
+		(err, result) => {
+			if (err) return res.status(500).send(err);
+			return res.status(200).send(result);
+		}
+	);
+};
 
 
 
@@ -59,5 +78,6 @@ module.exports={
     create,
     deleteById,
     getCard,
-    updateCard
+    updateCard,
+    updateCover
 }
