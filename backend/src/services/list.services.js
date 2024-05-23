@@ -55,10 +55,10 @@ const deleteById = async (listId, boardId, user, callback) => {
 		const board = await boardModel.findById(boardId);
 
 		const validate = board.lists.filter((list) => list.id === listId);
-		if (!validate) return callback({ errMessage: 'List or board informations are wrong' });
+		if (!validate) return callback({ Message: 'List or board informations are wrong' });
 
 		if (!user.boards.filter((board) => board === boardId))
-			return callback({ errMessage: 'You cannot delete a list that does not hosted by your boards' });
+			return callback({ Message: 'You cannot delete a list that does not hosted by your boards' });
 
 		const result = await listModel.findByIdAndDelete(listId);
 
@@ -76,7 +76,7 @@ const deleteById = async (listId, boardId, user, callback) => {
 
 		return callback(false, result);
 	} catch (error) {
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ Message: 'Something went wrong', details: error.message });
 	}
 };
 

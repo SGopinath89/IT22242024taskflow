@@ -12,7 +12,7 @@ const router = express.Router();
 //Card Routes
 router.post('/create', cardController.create);
 router.get('/:boardId/:listId/:cardId', cardController.getCard);
-router.put('/:boardId/:listId/:cardId', cardController.update);
+router.put('/:boardId/:listId/:cardId', cardController.updateCard);
 router.delete('/:boardId/:listId/:cardId/delete-card', cardController.deleteById);
 router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
 
