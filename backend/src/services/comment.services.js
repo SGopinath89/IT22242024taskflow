@@ -115,8 +115,30 @@ const deleteComment = async (cardId, listId, boardId, commentId, user, callback)
 	}
 };
 
+const getComments = async (cardId, listId, boardId, user, callback) => {
+    try {
+
+        const card = await cardModel.findById(cardId);
+		const list = await listModel.findById(listId);
+		const board = await boardModel.findById(boardId);
+        
+		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
+		if (!validate) {
+			return res.status(400).send({ message: 'You are not authorized to access the card' });
+		}
+
+        const comments = card.activities.filter(activity => activity.isComment);
+		
+
+        return callback(false, comments);
+    } catch (error) {
+        return callback({ errMessage: 'Error fetching comments under card', details: error.message });
+    }
+};
+
 module.exports={
     addComment,
     updateComment,
-    deleteComment
+    deleteComment,
+	getComments
 }

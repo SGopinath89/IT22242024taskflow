@@ -22,7 +22,8 @@ router.put('/:boardId/:listId/:cardId/update-cover', verifyToken,cardController.
 
 //Comment Routes
 router.post('/:boardId/:listId/:cardId/add-comment', verifyToken,commentController.addComment);
-router.put('/:boardId/:listId/:cardId/:commentId', commentController.updateComment);
+router.get('/:boardId/:listId/:cardId', verifyToken,commentController.getComment);
+router.put('/:boardId/:listId/:cardId/:commentId',verifyToken, commentController.updateComment);
 router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteComment);
 
 
