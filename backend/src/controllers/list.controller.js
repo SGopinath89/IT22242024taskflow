@@ -56,10 +56,41 @@ const updateCardOrder = async (req, res) => {
 	});
 };
 
+const updateListOrder = async (req, res) => {
+	const { boardId, sourceIndex, destinationIndex, listId } = req.body;
+	const user = req.user;
+
+	if (!(boardId && sourceIndex != undefined && destinationIndex != undefined && listId))
+		return res.status(400).send({ Message: 'All parameters not provided' });
+
+	const validate = user.boards.filter((board) => board === boardId);
+	if (!validate) return res.status(403).send({ Message: 'You are not authorized update order' });
+
+	await listService.updateListOrder(boardId, sourceIndex, destinationIndex, listId, (error, result) => {
+		if (error) return res.status(500).send(error);
+		return res.status(200).send(result);
+	});
+};
+
+const updateListTitle = async (req, res) => {
+	const { listId, boardId } = req.params;
+	const user = req.user;
+	const {title} = req.body;
+
+	if (!(listId && boardId)) return res.status(400).send({ Message: 'List or board undefined' });
+
+	await listService.updateListTitle(listId, boardId, user,title, (error, result) => {
+		if (error) return res.status(500).send(error);
+		return res.status(200).send(result);
+	});
+};
+
 
 module.exports={
     create,
     getAll,
     deleteById,
-    updateCardOrder
+    updateCardOrder,
+    updateListOrder,
+    updateListTitle
 }
