@@ -1,10 +1,10 @@
-const cardServices= require('../services/card.services.js');
+const commentServices= require('../services/comment.services.js');
 
 const addComment= async(req,res)=>{
     const user= req.user;
     const {boardId, listId, cardId}= req.params;
 
-    await cardServices.addComment(cardId,listId,boardId,user,req.body,(error,result)=>{
+    await commentServices.addComment(cardId,listId,boardId,user,req.body,(error,result)=>{
         if(error)
             return res.status(500).send({message:error.message})
 
@@ -16,7 +16,7 @@ const updateComment= async(req,res)=>{
     const user= req.user;
     const {boardId, listId, cardId,commentId}= req.params;
 
-    await cardServices.updateComment(cardId,listId,boardId,commentId,user,req.body,(error,result)=>{
+    await commentServices.updateComment(cardId,listId,boardId,commentId,user,req.body,(error,result)=>{
         if(error)
             return res.status(500).send({message:error.message})
 
@@ -28,7 +28,7 @@ const deleteComment= async(req,res)=>{
     const user= req.user;
     const {boardId, listId, cardId,commentId}= req.params;
 
-    await cardServices.deleteComment(cardId,listId,boardId,commentId,user,req.body,(error,result)=>{
+    await commentServices.deleteComment(cardId,listId,boardId,commentId,user,req.body,(error,result)=>{
         if(error)
             return res.status(500).send({message:error.message})
 
