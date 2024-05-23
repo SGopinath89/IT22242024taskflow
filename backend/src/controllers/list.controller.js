@@ -28,6 +28,17 @@ const getAll = async (req, res) => {
 	});
 };
 
+const deleteById = async (req, res) => {
+	const { listId, boardId } = req.params;
+	const user = req.user;
+
+    if (!(listId && boardId)) return res.status(400).send({ Message: 'List or board undefined' });
+
+	await listService.deleteById(listId, boardId, user, (err, result) => {
+		if (err) return res.status(500).send(err);
+		return res.status(200).send(result);
+	});
+};
 
 
 
