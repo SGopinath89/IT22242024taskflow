@@ -6,19 +6,22 @@ const attachmentController= require('../controllers/attachment.controllers.js') 
 const checklistController= require('../controllers/checklist.controllers.js') //attachment
 const dateController= require('../controllers/date.controllers.js') //attachment
 
+const {verifyToken}= require('../middleware/auth.middleware.js')
+
+
 const express = require('express');
 const router = express.Router();
 
 //Card Routes
-router.post('/create', cardController.create);
-router.get('/:boardId/:listId/:cardId', cardController.getCard);
-router.put('/:boardId/:listId/:cardId', cardController.updateCard);
-router.delete('/:boardId/:listId/:cardId/delete-card', cardController.deleteById);
-router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
+router.post('/create',verifyToken, cardController.create);
+router.get('/:boardId/:listId/:cardId', verifyToken,cardController.getCard);
+router.put('/:boardId/:listId/:cardId',verifyToken, cardController.updateCard);
+router.delete('/:boardId/:listId/:cardId/delete-card', verifyToken,cardController.deleteById);
+router.put('/:boardId/:listId/:cardId/update-cover', verifyToken,cardController.updateCover);
 
 
 //Comment Routes
-router.post('/:boardId/:listId/:cardId/add-comment', commentController.addComment);
+router.post('/:boardId/:listId/:cardId/add-comment', verifyToken,commentController.addComment);
 router.put('/:boardId/:listId/:cardId/:commentId', commentController.updateComment);
 router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteComment);
 

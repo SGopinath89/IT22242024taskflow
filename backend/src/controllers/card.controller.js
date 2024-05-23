@@ -42,6 +42,7 @@ const getCard= async(req,res)=>{
 const updateCard= async(req,res)=>{
     const user= req.user;
     const {boardId, listId, cardId}= req.params;
+    const {title}= req.body; // add fields you want to update
 
     await cardServices.update(cardId,listId,boardId,user,req.body,(error,result)=>{
         if(error)
@@ -64,8 +65,8 @@ const updateCover = async (req, res) => {
 		user,
 		color,
 		isSizeOne,
-		(err, result) => {
-			if (err) return res.status(500).send(err);
+		(error, result) => {
+			if (error) return res.status(500).send(error);
 			return res.status(200).send(result);
 		}
 	);
