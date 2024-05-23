@@ -34,20 +34,24 @@ router.put('/:boardId/:listId/:cardId/:labelId/update-label', labelController.up
 router.put('/:boardId/:listId/:cardId/:labelId/update-label-selection', labelController.updateLabelSelection);
 router.delete('/:boardId/:listId/:cardId/:labelId/delete-label', labelController.deleteLabel);
 
+//attachment Routes
+router.put('/:boardId/:listId/:cardId/:attachmentId/update-attachment', attachmentController.updateAttachment);
+router.delete('/:boardId/:listId/:cardId/:attachmentId/delete-attachment', attachmentController.deleteAttachment);
+router.post('/:boardId/:listId/:cardId/add-attachment', attachmentController.addAttachment);
 
 
-router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
-router.put('/:boardId/:listId/:cardId/:attachmentId/update-attachment', cardController.updateAttachment);
-router.delete('/:boardId/:listId/:cardId/:attachmentId/delete-attachment', cardController.deleteAttachment);
-router.post('/:boardId/:listId/:cardId/add-attachment', cardController.addAttachment);
-router.put('/:boardId/:listId/:cardId/update-dates', cardController.updateStartDueDates);
-router.put('/:boardId/:listId/:cardId/update-date-completed', cardController.updateDateCompleted);
-router.delete('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/delete-checklist-item', cardController.deleteChecklistItem);
-router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-text', cardController.setChecklistItemText);
-router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-completed', cardController.setChecklistItemCompleted);
-router.post('/:boardId/:listId/:cardId/:checklistId/add-checklist-item', cardController.addChecklistItem);
-router.delete('/:boardId/:listId/:cardId/:checklistId/delete-checklist', cardController.deleteChecklist);
-router.post('/:boardId/:listId/:cardId/create-checklist', cardController.createChecklist);
+//date Routes
+router.put('/:boardId/:listId/:cardId/update-dates', dateController.updateStartDueDates);
+router.put('/:boardId/:listId/:cardId/update-date-completed', dateController.updateDateCompleted);
+
+
+//checklist Routes
+router.delete('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/delete-checklist-item', checklistController.deleteChecklistItem);
+router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-text', checklistController.setChecklistItemText);
+router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-completed', checklistController.setChecklistItemCompleted);
+router.post('/:boardId/:listId/:cardId/:checklistId/add-checklist-item', checklistController.addChecklistItem);
+router.delete('/:boardId/:listId/:cardId/:checklistId/delete-checklist', checklistController.deleteChecklist);
+router.post('/:boardId/:listId/:cardId/create-checklist', checklistController.createChecklist);
 
 
 
