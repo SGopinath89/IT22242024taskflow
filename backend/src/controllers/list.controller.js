@@ -15,6 +15,19 @@ const create = async (req, res) => {
 	});
 };
 
+const getAll = async (req, res) => {
+	const boardId = req.params.id;
+
+	const validate = req.user.boards.filter((board) => board === boardId);
+	if (!validate)
+		return res.status(400).send({ Message: 'You are not authorized to get list ' });
+
+	await listService.getAll(boardId, (err, result) => {
+		if (err) return res.status(500).send(err);
+		return res.status(200).send(result);
+	});
+};
+
 
 
 
