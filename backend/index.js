@@ -14,6 +14,9 @@ const database= require('../backend/src/db/dbconfig.js');
 const userRoute = require ('./src/routes/user.router.js');
 const boardRoute= require('../backend/src/routes/board.router.js')
 const auth = require('./src/middleware/auth.middleware.js');
+const listRoute= require('../backend/src/routes/list.router.js')
+const cardRoute= require('../backend/src/routes/card.router.js')
+
 // const boardRoutes= require('../backend/src/routes/board.router.js')
 // const sectionRoutes= require('../backend/src/routes/section.router.js');
 const { verifyToken } = require('./src/middleware/auth.middleware.js')
@@ -41,6 +44,9 @@ database.connectDB();
 // app.use('/api/auth',authRoutes);
 app.use('/board',boardRoute);
 app.use('/user',userRoute);
+app.use('/list',listRoute);
+app.use('/card', cardRoute);
+
 
 
 
