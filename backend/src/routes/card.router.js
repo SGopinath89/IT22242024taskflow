@@ -1,5 +1,6 @@
 const cardController = require('../controllers/card.controller.js'); //Card controllers
 const commentController= require('../controllers/comment.controller.js') //Comment Controllers
+const memberController= require('../controllers/member.controller.js') //Member Controller
 const express = require('express');
 const router = express.Router();
 
@@ -13,6 +14,11 @@ router.delete('/:boardId/:listId/:cardId/delete-card', cardController.deleteById
 router.post('/:boardId/:listId/:cardId/add-comment', commentController.addComment);
 router.put('/:boardId/:listId/:cardId/:commentId', commentController.updateComment);
 router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteComment);
+
+
+//member Routes
+router.post('/:boardId/:listId/:cardId/add-member', memberController.addMember);
+router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', memberController.deleteMember);
 
 
 router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
@@ -31,8 +37,7 @@ router.put('/:boardId/:listId/:cardId/:labelId/update-label-selection', cardCont
 router.delete('/:boardId/:listId/:cardId/:labelId/delete-label', cardController.deleteLabel);
 router.put('/:boardId/:listId/:cardId/:labelId/update-label', cardController.updateLabel);
 router.post('/:boardId/:listId/:cardId/create-label', cardController.createLabel);
-router.post('/:boardId/:listId/:cardId/add-member', cardController.addMember);
-router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', cardController.deleteMember);
+
 
 
 
