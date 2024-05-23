@@ -2,6 +2,10 @@ const cardController = require('../controllers/card.controller.js'); //Card cont
 const commentController= require('../controllers/comment.controller.js') //Comment Controllers
 const memberController= require('../controllers/member.controller.js') //Member Controller
 const labelController= require('../controllers/label.controller.js') //label Controller
+const attachmentController= require('../controllers/attachment.controllers.js') //attachment
+const checklistController= require('../controllers/checklist.controllers.js') //attachment
+const dateController= require('../controllers/date.controllers.js') //attachment
+
 const express = require('express');
 const router = express.Router();
 
@@ -10,6 +14,8 @@ router.post('/create', cardController.create);
 router.get('/:boardId/:listId/:cardId', cardController.getCard);
 router.put('/:boardId/:listId/:cardId', cardController.update);
 router.delete('/:boardId/:listId/:cardId/delete-card', cardController.deleteById);
+router.put('/:boardId/:listId/:cardId/update-cover', cardController.updateCover);
+
 
 //Comment Routes
 router.post('/:boardId/:listId/:cardId/add-comment', commentController.addComment);
