@@ -111,7 +111,7 @@ const deleteComment = async (cardId, listId, boardId, commentId, user, callback)
 
 		return callback(false, { message: 'Success!' });
 	} catch (error) {
-		return callback({ errMessage: 'Error Deleting a comment', details: error.message });
+		return callback({ Message: 'Error Deleting a comment', details: error.message });
 	}
 };
 
@@ -127,7 +127,10 @@ const getComments = async (cardId, listId, boardId, user, callback) => {
 			return res.status(400).send({ message: 'You are not authorized to access the card' });
 		}
 
-        const comments = card.activities.filter(activity => activity.isComment);
+        // const comments = card.activities.filter(activity => activity.isComment);
+		const comments= card.activities
+            .filter(activity => activity.isComment)
+            .map(comment => comment._id);
 		
 
         return callback(false, comments);

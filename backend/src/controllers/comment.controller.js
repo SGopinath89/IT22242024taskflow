@@ -28,7 +28,7 @@ const deleteComment= async(req,res)=>{
     const user= req.user;
     const {boardId, listId, cardId,commentId}= req.params;
 
-    await commentServices.deleteComment(cardId,listId,boardId,commentId,user,req.body,(error,result)=>{
+	await commentServices.deleteComment(cardId, listId, boardId, commentId, user, (error, result) => {
         if(error)
             return res.status(500).send({message:error.message})
 

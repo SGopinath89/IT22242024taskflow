@@ -22,9 +22,9 @@ router.put('/:boardId/:listId/:cardId/update-cover', verifyToken,cardController.
 
 //Comment Routes
 router.post('/:boardId/:listId/:cardId/add-comment', verifyToken,commentController.addComment);
-router.get('/:boardId/:listId/:cardId', verifyToken,commentController.getComment);
+router.get('/:boardId/:listId/:cardId', verifyToken,commentController.getComment); //all the details are printing , only need comment details
 router.put('/:boardId/:listId/:cardId/:commentId',verifyToken, commentController.updateComment);
-router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteComment);
+router.delete('/:boardId/:listId/:cardId/:commentId',verifyToken, commentController.deleteComment);
 
 
 //member Routes
