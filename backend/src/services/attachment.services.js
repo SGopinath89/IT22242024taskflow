@@ -4,8 +4,7 @@ const boardModel = require('../models/board.js');
 const userModel = require('../models/user.js');
 const helperMethods = require('./helperMethod.js');
 
-const 
-addAttachment = async (cardId, listId, boardId, user, link, name, callback) => {
+const addAttachment = async (cardId, listId, boardId, user, link, name, callback) => {
 	try {
 		const card = await cardModel.findById(cardId);
 		const list = await listModel.findById(listId);
@@ -46,6 +45,15 @@ const deleteAttachment = async (cardId, listId, boardId, user, attachmentId, cal
 			return res.status(400).send({ message: 'You are not authorized to delete an  attachment' });
 		}
 
+		// let attachmentObj = card.attachments.filter(
+		// 	(attachment) => attachment._id.toString() === attachmentId.toString()
+		// );
+
+		const attachmentIndex = card.attachments.findIndex((attachment) => attachment._id.toString() === attachmentId.toString());
+        if (attachmentIndex === -1) {
+            return callback({ Message: 'Attachment not found in the card' });
+        }
+
 		let attachmentObj = card.attachments.filter(
 			(attachment) => attachment._id.toString() === attachmentId.toString()
 		);
@@ -65,7 +73,7 @@ const deleteAttachment = async (cardId, listId, boardId, user, attachmentId, cal
 
 		return callback(false, { message: 'Success!' });
 	} catch (error) {
-		return callback({ errMessage: 'Error deleting an attachment', details: error.message });
+		return callback({ Message: 'Error deleting an attachment', details: error.message });
 	}
 };
 
