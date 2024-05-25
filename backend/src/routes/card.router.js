@@ -50,16 +50,11 @@ router.put('/:boardId/:listId/:cardId/update-date-completed', dateController.upd
 
 
 //checklist Routes
-router.delete('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/delete-checklist-item', checklistController.deleteChecklistItem);
+router.post('/:boardId/:listId/:cardId/create-checklist', checklistController.createChecklist);
+router.post('/:boardId/:listId/:cardId/:checklistId/add-checklist-item', checklistController.addChecklistItem);
 router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-text', checklistController.setChecklistItemText);
 router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-completed', checklistController.setChecklistItemCompleted);
-router.post('/:boardId/:listId/:cardId/:checklistId/add-checklist-item', checklistController.addChecklistItem);
+router.delete('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/delete-checklist-item', checklistController.deleteChecklistItem);
 router.delete('/:boardId/:listId/:cardId/:checklistId/delete-checklist', checklistController.deleteChecklist);
-router.post('/:boardId/:listId/:cardId/create-checklist', checklistController.createChecklist);
-
-
-
-
-
 
 module.exports = router;

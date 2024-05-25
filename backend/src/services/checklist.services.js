@@ -86,7 +86,6 @@ const addChecklistItem = async (cardId, listId, boardId, user, checklistId, text
 		});
 		await card.save();
 
-		// Get to created ChecklistItem's id
 		let checklistItemId = '';
 		card.checklists = card.checklists.map((list) => {
 			if (list._id.toString() == checklistId.toString()) {
