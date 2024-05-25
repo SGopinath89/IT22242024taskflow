@@ -4,7 +4,8 @@ const boardModel = require('../models/board.js');
 const userModel = require('../models/user.js');
 const helperMethods = require('./helperMethod.js');
 
-const addAttachment = async (cardId, listId, boardId, user, link, name, callback) => {
+const 
+addAttachment = async (cardId, listId, boardId, user, link, name, callback) => {
 	try {
 		const card = await cardModel.findById(cardId);
 		const list = await listModel.findById(listId);

@@ -26,6 +26,8 @@ const deleteLabel = async (req, res) => {
 	const user = req.user;
 	const { boardId, listId, cardId, labelId } = req.params;
 
+	
+
 	await labelServices.deleteLabel(cardId, listId, boardId, labelId, user, (error, result) => {
 		if (error) return res.status(500).send(error);
 		return res.status(200).send(result);

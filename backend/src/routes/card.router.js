@@ -28,14 +28,14 @@ router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteCo
 
 
 //member Routes
-router.post('/:boardId/:listId/:cardId/add-member',memberController.addMember);
-router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', memberController.deleteMember);
+router.post('/:boardId/:listId/:cardId/add-member',memberController.addMember); //Not working
+router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', memberController.deleteMember); //not working
 
 
 //label Routes
 router.post('/:boardId/:listId/:cardId/create-label', labelController.createLabel);
 router.put('/:boardId/:listId/:cardId/:labelId/update-label', labelController.updateLabel);
-router.put('/:boardId/:listId/:cardId/:labelId/update-label-selection', labelController.updateLabelSelection);
+router.put('/:boardId/:listId/:cardId/:labelId/update-label-selection', labelController.updateLabelSelection);  //Error
 router.delete('/:boardId/:listId/:cardId/:labelId/delete-label', labelController.deleteLabel);
 
 //attachment Routes
