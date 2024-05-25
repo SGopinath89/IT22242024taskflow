@@ -6,29 +6,29 @@ const attachmentController= require('../controllers/attachment.controllers.js') 
 const checklistController= require('../controllers/checklist.controllers.js') //attachment
 const dateController= require('../controllers/date.controllers.js') //attachment
 
-const {verifyToken}= require('../middleware/auth.middleware.js')
+// const {verifyToken}= require('../middleware/auth.middleware.js')
 
 
 const express = require('express');
 const router = express.Router();
 
 //Card Routes
-router.post('/create',verifyToken, cardController.create);
-router.get('/:boardId/:listId/:cardId', verifyToken,cardController.getCard);
-router.put('/:boardId/:listId/:cardId',verifyToken, cardController.updateCard);
-router.delete('/:boardId/:listId/:cardId/delete-card', verifyToken,cardController.deleteById);
-router.put('/:boardId/:listId/:cardId/update-cover', verifyToken,cardController.updateCover);
+router.post('/create', cardController.create);
+router.get('/:boardId/:listId/:cardId',cardController.getCard);
+router.put('/:boardId/:listId/:cardId', cardController.updateCard);
+router.delete('/:boardId/:listId/:cardId/delete-card',cardController.deleteById);
+router.put('/:boardId/:listId/:cardId/update-cover',cardController.updateCover);
 
 
 //Comment Routes
-router.post('/:boardId/:listId/:cardId/add-comment', verifyToken,commentController.addComment);
-router.get('/:boardId/:listId/:cardId', verifyToken,commentController.getComment); //all the details are printing , only need comment details
-router.put('/:boardId/:listId/:cardId/:commentId',verifyToken, commentController.updateComment);
-router.delete('/:boardId/:listId/:cardId/:commentId',verifyToken, commentController.deleteComment);
+router.post('/:boardId/:listId/:cardId/add-comment',commentController.addComment);
+router.get('/:boardId/:listId/:cardId',commentController.getComment); //all the details are printing , only need comment details
+router.put('/:boardId/:listId/:cardId/:commentId', commentController.updateComment);
+router.delete('/:boardId/:listId/:cardId/:commentId', commentController.deleteComment);
 
 
 //member Routes
-router.post('/:boardId/:listId/:cardId/add-member', memberController.addMember);
+router.post('/:boardId/:listId/:cardId/add-member',memberController.addMember);
 router.delete('/:boardId/:listId/:cardId/:memberId/delete-member', memberController.deleteMember);
 
 
