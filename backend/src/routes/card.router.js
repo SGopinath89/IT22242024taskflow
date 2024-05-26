@@ -6,7 +6,6 @@ const attachmentController= require('../controllers/attachment.controllers.js') 
 const checklistController= require('../controllers/checklist.controllers.js') //attachment
 const dateController= require('../controllers/date.controllers.js') //attachment
 
-// const {verifyToken}= require('../middleware/auth.middleware.js')
 
 
 const express = require('express');
@@ -56,5 +55,6 @@ router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklis
 router.put('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/set-checklist-item-completed', checklistController.setChecklistItemCompleted);
 router.delete('/:boardId/:listId/:cardId/:checklistId/:checklistItemId/delete-checklist-item', checklistController.deleteChecklistItem);
 router.delete('/:boardId/:listId/:cardId/:checklistId/delete-checklist', checklistController.deleteChecklist);
+
 
 module.exports = router;
