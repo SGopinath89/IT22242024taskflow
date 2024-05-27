@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import Index from "../src/Components/Pages/IndexPage/Index.js";
-import Login from "../src/Components/Pages/LoginPage/Login.js";
-import Register from "../src/Components/Pages/RegisterPage/Register.js";
-import Alert from "../src/Components/AlertSnackBar.js";
+import Index from "./Components/Pages/IndexPage/Index";
+import Login from "./Components/Pages/LoginPage/Login";
+import Register from "./Components/Pages/RegisterPage/Register";
+import Alert from "./Components/AlertSnackBar";
 import { BrowserRouter, Switch } from "react-router-dom";
-import Boards from "../src/Components/Pages/BoardsPage/Boards.js";
+import Boards from "./Components/Pages/BoardsPage/Boards";
 import ProtectedRoute from "./Utils/ProtectedRoute";
 import { loadUser } from "./Services/userService";
 import Store from "./Redux/Store";
