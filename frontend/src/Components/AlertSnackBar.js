@@ -3,7 +3,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { closeAlert } from "../Redux/Slices/alertSlice";
+import { closeAlert } from "../Redux/Slices/alertSlice.js";
 import { useHistory } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {

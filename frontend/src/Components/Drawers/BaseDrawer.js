@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import { Container, HeadContainer, BackIconWrapper, Title, CloseIconWrapper, Hr, ContentWrapper } from './styled';
+import { Container, HeadContainer, BackIconWrapper, Title, CloseIconWrapper, Hr, ContentWrapper } from '../Drawers/styled.js';
 import BackIcon from '@mui/icons-material/ArrowBackIos';
 import CloseIcon from '@mui/icons-material/Close';
 const BaseDrawer = (props) => {
