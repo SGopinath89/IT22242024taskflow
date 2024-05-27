@@ -5,11 +5,11 @@ import { getBoards } from "../../../Services/boardsService";
 import Navbar from "../../Navbar";
 import { Container, Wrapper, Title, Board, AddBoard } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 const Boards = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pending, boardsData } = useSelector((state) => state.boards);
   const [openModal, setOpenModal] = useState(false);
   const [searchString, setSearchString] = useState('');
@@ -18,7 +18,7 @@ const Boards = () => {
   };
 
   const handleClick = (e) => {
-   history.push(`/board/${e.target.id}`)
+   navigate(`/board/${e.target.id}`)
   }
 
   useEffect(() => {

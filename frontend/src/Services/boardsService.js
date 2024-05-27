@@ -10,7 +10,7 @@ import {
 } from "../Redux/Slices/boardsSlice";
 import { addNewBoard } from "../Redux/Slices/userSlice";
 import {setLoading, successFetchingBoard, updateTitle} from "../Redux/Slices/boardSlice";
-const baseUrl = "http://localhost:3001/api/board";
+const baseUrl = "http://localhost:3000/api/board";
 
 export const getBoards = async (fromDropDown,dispatch) => {
   if(!fromDropDown)dispatch(startFetchingBoards());

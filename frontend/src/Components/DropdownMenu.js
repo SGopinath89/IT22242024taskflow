@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import DownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styledComponent from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate  } from 'react-router-dom';
 import { getBoards } from '../Services/boardsService';
 import CardLoadingSvg from '../Images/cardLoading.svg';
 
@@ -52,7 +52,7 @@ const StyledIcon = styled(DownIcon)({
 
 export default function DropdownMenu(props) {
 	const boardsData = useSelector((state) => state.boards.boardsData);
-	const history = useHistory();
+	const navigate = useNavigate ();
 	const dispatch = useDispatch();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [loading, setLoading] = React.useState(false);
@@ -109,7 +109,7 @@ export default function DropdownMenu(props) {
 									key={item._id}
 									onClick={() => {
 										setAnchorEl(null);
-										history.push('/board/' + item._id);
+										navigate('/board/' + item._id);
 									}}
 								>
 									<Span>{item.title}</Span>

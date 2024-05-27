@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { lg } from "../BreakPoints";
 import trelloLogo from "../Images/trello-logo.svg";
@@ -53,13 +53,13 @@ const Button = styled.button`
 `;
 
 const IndexNav = () => {
-  let history = useHistory();
+  let navigate = useNavigate();
   return (
     <Container>
       <Icon src={trelloLogo} />
       <RightSide>
-        <Link onClick={()=>history.push("/login")}>Log in</Link>
-        <Button onClick={()=>history.push("/register")}>Sign up</Button>
+        <Link onClick={()=>navigate("/login")}>Log in</Link>
+        <Button onClick={()=>navigate("/register")}>Sign up</Button>
       </RightSide>
     </Container>
   );

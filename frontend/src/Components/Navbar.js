@@ -4,7 +4,7 @@ import DropdownMenu from './DropdownMenu';
 import SearchBar from './SearchBar';
 import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
 	height: 3rem;
@@ -70,7 +70,7 @@ const DropdownContainer = styled.div`
 `;
 
 const Navbar = (props) => {
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	return (
 		<Container>
@@ -78,7 +78,7 @@ const Navbar = (props) => {
 				<LogoContainer>
 					<TrelloLogo
 						onClick={() => {
-							history.push('/boards');
+							navigate('/boards');
 						}}
 						src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif'
 					/>

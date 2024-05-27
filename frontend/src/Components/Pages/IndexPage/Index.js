@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import IndexNav from "../../IndexNav";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Content,
@@ -14,7 +14,7 @@ import {
 } from "./Styled";
 
 const Index = () => {
-  let history = useHistory();
+  let navigate = useNavigate();
   useEffect(() => {
     document.title = "Trello Clone"
   }, [])
@@ -31,7 +31,7 @@ const Index = () => {
                 From high rises to the home office, the way your team works is
                 unique—accomplish it all with Trello.
               </Text>
-              <Button onClick={() => history.push("/register")}>
+              <Button onClick={() => navigate("/register")}>
                 Sign up - it's free
               </Button>
             </LeftWrapper>

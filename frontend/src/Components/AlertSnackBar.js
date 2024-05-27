@@ -4,7 +4,7 @@ import MuiAlert from "@mui/material/Alert";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { closeAlert } from "../Redux/Slices/alertSlice.js";
-import { useHistory } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -15,14 +15,14 @@ const AlertSnackBar = () => {
   const { open, message, severity, duration, nextRoute } = useSelector(
     (state) => state.alert
   );
-  const history = useHistory();
+  const navigate = useNavigate ();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     dispatch(closeAlert());
     try {
-      history.push(nextRoute);
+      navigate(nextRoute);
     } catch (error) {}
   };
 

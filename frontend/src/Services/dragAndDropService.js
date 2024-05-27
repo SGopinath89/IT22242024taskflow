@@ -2,7 +2,7 @@ import axios from 'axios';
 import { updateCardDragDrop, updateListDragDrop } from '../Redux/Slices/listSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
 
-const baseUrl = 'http://localhost:3001/api/list';
+const baseUrl = 'http://localhost:3000/api/list';
 
 //  Create promise to queue requests
 let submitCall = Promise.resolve();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
 import {
@@ -20,7 +20,7 @@ import {
 } from "./Styled";
 
 const Login = () => {
-  let history = useHistory();
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const [userInformations, setUserInformations] = useState({
     email: "",
@@ -40,7 +40,7 @@ const Login = () => {
         <Background />
       </BgContainer>
       <Container>
-        <TrelloIconContainer onClick={() => history.push("/")}>
+        <TrelloIconContainer onClick={() => navigate("/")}>
           <Icon src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg" />
         </TrelloIconContainer>
         <FormSection>
@@ -75,7 +75,7 @@ const Login = () => {
               <Hr />
               <Link
                 fontSize="0.85rem"
-                onClick={() => history.push("/register")}
+                onClick={() => navigate("/register")}
               >
                 Sign up for an account
               </Link>
