@@ -24,7 +24,7 @@ import {
 	MembersContainer,
 	MembersWrapper,
 } from './styled';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable } from "@hello-pangea/dnd";
 import moment from 'moment';
 import { Avatar } from '@mui/material';
 const Card = (props) => {
@@ -70,9 +70,9 @@ const Card = (props) => {
 							{...provided.draggableProps}
 							style={getStyle(provided.draggableProps.style, snapshot)}
 							ref={provided.innerRef}
-							isDragging={snapshot.isDragging}
-							color={!card.cover.isSizeOne ? card.cover.color : '#fff'}
-							padding={card.cover.color && card.cover.isSizeOne}
+							$isDragging={snapshot.isDragging}
+							$color={!card.cover.isSizeOne ? card.cover.color : '#fff'}
+							$padding={card.cover.color && card.cover.isSizeOne}
 						>
 							{card.cover.isSizeOne && <Cover color={card.cover.color} />}
 							{labels && (
@@ -101,7 +101,7 @@ const Card = (props) => {
 
 										{(card.date.dueDate || card.date.startDate) && ( //#ec9488, #eb5a46 #61bd4f
 											<DateContainer
-												backColor={
+												$backColor={
 													card.date.completed
 														? '#61bd4f'
 														: moment(card.date.dueDate).toDate().getTime() <
@@ -109,7 +109,7 @@ const Card = (props) => {
 														? '#ec9488'
 														: 'transparent'
 												}
-												hoverBg={
+												$hoverBg={
 													card.date.completed
 														? '#81dd6f'
 														: moment(card.date.dueDate).toDate().getTime() <
@@ -117,7 +117,7 @@ const Card = (props) => {
 														? '#eb5a46'
 														: 'lightgray'
 												}
-												color={
+												$color={
 													card.date.completed ||
 													moment(card.date.dueDate).toDate().getTime() < new Date().getTime()
 														? 'white'
@@ -136,7 +136,7 @@ const Card = (props) => {
 													fontSize='0.5rem'
 												/>
 												<Span
-													color={
+													$color={
 														card.date.completed ||
 														moment(card.date.dueDate).toDate().getTime() <
 															new Date().getTime()

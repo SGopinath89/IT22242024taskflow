@@ -31,11 +31,11 @@ const AddList = (props) => {
 	return (
 		<>
 			<style.AddAnotherListContainer>
-				<style.AddAnotherListButton show={addList ? 'true' : 'false'} onClick={() => setAddList(true)}>
+				<style.AddAnotherListButton $show={addList ? 'true' : 'false'} onClick={() => setAddList(true)}>
 					<AddIcon />
 					<TextSpan>Add another List</TextSpan>
 				</style.AddAnotherListButton>
-				<style.AddListContainer show={addList ? 'true' : 'false'}>
+				<style.AddListContainer $show={addList ? 'true' : 'false'}>
 					<style.AddListWrapper>
 						<style.ListTitleInput
 							ref={ref}

@@ -51,7 +51,7 @@ export const CommentArea = styled.textarea`
 	resize: none;
 	outline: none;
 	border-radius: 2px;
-	height: ${(props) => (props.focus ? '5.25rem' : '2.1rem')};
+	height: ${(props) => (props.$focus ? '5.25rem' : '2.1rem')};
 	font-size: 0.875rem;
 	padding: 0.5rem 0.75rem;
 	border: 1px solid lightgray;
@@ -65,7 +65,7 @@ export const CommentArea = styled.textarea`
 	}
 `;
 export const SaveButton = styled.button`
-	display: ${(props) => (props.show ? 'block' : 'none')};
+	display: ${(props) => (props.$show ? 'block' : 'none')};
 	position: absolute;
 	border: none;
 	background-color: #0079bf;

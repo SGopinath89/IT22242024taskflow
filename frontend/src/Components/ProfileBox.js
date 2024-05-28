@@ -70,7 +70,7 @@ export default function ProfileBox() {
 			>
 				<MenuItem
 					onClick={() => {
-						dispatch(reset);
+						dispatch(reset());
 						dispatch(logout());
 					}}
 				>

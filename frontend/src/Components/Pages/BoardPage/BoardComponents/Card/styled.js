@@ -15,13 +15,14 @@ export const Container = styled.div`
 	border-radius: 3px;
 	color: black;
 	gap: 0.3rem;
-	background-color: ${(props) => (props.color ? props.color : '#fff')};
-	padding-top: ${(props) => (props.padding ? '2.3rem' : '0.3rem')};
+	background-color: ${(props) => (props.$color ? props.$color : '#fff')};
+	padding-top: ${(props) => (props.$padding ? '2.3rem' : '0.3rem')};
 	&:hover {
 		cursor: pointer;
 		filter: grayscale(20%) brightness(97%);
 	}
 	position: relative;
+	${(props) => props.$isDragging && 'background: #cfcfcf;'}
 `;
 
 export const Cover = styled.div`
@@ -32,7 +33,7 @@ export const Cover = styled.div`
 	border-top-right-radius: 3px;
 	width: 100%;
 	height: 2rem;
-	background-color: ${(props) => props.color};
+	background-color: ${(props) => props.$color};
 `;
 
 export const LabelContainer = styled.div`
@@ -45,7 +46,7 @@ export const LabelContainer = styled.div`
 export const Label = styled.div`
 	width: 2.5rem;
 	height: 0.5rem;
-	background-color: ${(props) => props.color};
+	background-color: ${(props) => props.$color};
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: 2rem;
 `;
@@ -107,18 +108,18 @@ export const DateContainer = styled.div`
 	padding: 0.1rem 0.3rem;
 	border-radius: 3px;
 	gap: 0.2rem;
-	background-color: ${(props) => props.backColor};
-	color: ${(props) => props.color};
+	background-color: ${(props) => props.$backColor};
+	color: ${(props) => props.$color};
 	cursor: pointer;
 	color: white;
 	&:hover {
-		background-color: ${(props) => props.hoverBg};
+		background-color: ${(props) => props.$hoverBg};
 	}
 `;
 
 export const Span = styled.div`
 	font-size: 0.75rem;
-	color: ${(props) => props.color};
+	color: ${(props) => props.$color};
 `;
 
 export const CommentContainer = styled.div`

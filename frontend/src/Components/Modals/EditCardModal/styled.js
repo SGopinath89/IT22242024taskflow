@@ -21,9 +21,9 @@ export const Container = styled.div`
 `;
 
 export const CoverContainer = styled.div`
-	display: ${(props) => (props.color ? 'block' : 'none')};
+	display: ${(props) => (props.$color ? 'block' : 'none')};
 	min-height: 7.25rem;
-	background-color: ${(props) => props.color};
+	background-color: ${(props) => props.$color};
 	margin: -0.5rem 0rem 0rem -0.25rem;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
@@ -96,7 +96,7 @@ export const AddToCardContainer = styled.div``;
 export const ActionsContainer = styled.div``;
 
 export const LoadingScreen = styled.div`
-	background-image: url(${(props) => props.image});
+	background-image: url(${(props) => props.$image});
 	background-position: center;
 	background-repeat: no-repeat;
 	width: 100%;

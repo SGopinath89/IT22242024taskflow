@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Container = styled.div`
 	height: 4rem;
 	width: 100%;
-    border: 2px solid ${props=>props.selected?'#0079bf':'#fff'};	    
+    border: 2px solid ${props=>props.$selected?'#0079bf':'#fff'};	    
     border-radius: 5px;
     padding:1px;    
 `;
@@ -21,14 +21,14 @@ const Wrapper = styled.div`
     justify-content: flex-end;
     padding: 0rem 0.5rem 0.3rem 0.5rem;
     gap: 0.25rem;
-    background-color: ${props=>props.top};
+    background-color: ${props=>props.$top};
 `;
 
 const LongBar = styled.div`
 	width: 100%;
 	height: 0.25rem;
 	border-radius: 3px;
-	background-color: ${props=>props.primary};
+	background-color: ${props=>props.$primary};
 `;
 
 const ShortBar = styled(LongBar)`
@@ -49,10 +49,10 @@ const SizeTypeTwo = (props) => {
 	}, [props.color, props.selected]);
 
 	return (
-		<Container selected={props.selected}>
-			<Wrapper top={colors.top}>
-					<LongBar primary={colors.primary}/>
-					<ShortBar primary={colors.primary} />
+		<Container $selected={props.selected}>
+			<Wrapper $top={colors.top}>
+					<LongBar $primary={colors.primary}/>
+					<ShortBar $primary={colors.primary} />
 			</Wrapper>
 		</Container>
 	);

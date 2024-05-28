@@ -64,8 +64,8 @@ const Features = (props) => {
 									onClick={(event) => {
 										setLabelPopover(ref.current)}}
 									key={label._id}
-									color={label.color}
-									hoverColor={label.backColor}
+									$color={label.color}
+									$hoverColor={label.backColor}
 								>
 									{label.text}
 								</Label>
@@ -117,9 +117,9 @@ const Features = (props) => {
 								card.date.dueTime ? ' at ' + card.date.dueTime : ''
 							}`}</DateText>
 							{moment(card.date.dueDate).toDate().getTime() < new Date().getTime() ? (
-								<OverDueLabel show={true}>overdue</OverDueLabel>
+								<OverDueLabel $show={true}>overdue</OverDueLabel>
 							) : (
-								<CompleteLabel show={dateCheck}>complete</CompleteLabel>
+								<CompleteLabel $show={dateCheck}>complete</CompleteLabel>
 							)}
 							<ArrowDownIcon style={{ marginBottom: '0.2rem' }} fontSize='small' />
 						</DateDropDown>

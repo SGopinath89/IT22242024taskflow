@@ -95,9 +95,9 @@ const AboutMenu = () => {
 					<DescriptionInput
 						ref={textAreaRef}
 						onChange={onChangeHandler}
-						value={description}
+						$value={description}
 						onFocus={() => setTextareaFocus(true)}
-						textHeight={hiddenTextRef.current ? hiddenTextRef.current.scrollHeight : '1rem'}
+						$textHeight={hiddenTextRef.current ? hiddenTextRef.current.scrollHeight : '1rem'}
 						focused={textareaFocus}
 						placeholder='It’s your board’s time to shine! Let people know what this board is used for and what they can expect to see.'
 					/>

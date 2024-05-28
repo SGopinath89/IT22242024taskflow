@@ -29,10 +29,10 @@ export const Colorbox = styled.div`
 	text-align: left;
 	color: white;
 	border-radius: 3px;
-	background-color: ${(props) => props.bg};
+	background-color: ${(props) => props.$bg};
 	transition: 150ms ease-in;
 	&:hover {
-		box-shadow: -5px 0 ${(props) => props.hbg};
+		box-shadow: -5px 0 ${(props) => props.$hbg};
 	}
 `;
 export const ColorText = styled.div`
@@ -103,11 +103,11 @@ export const SmallColorBox = styled.div`
 	width: 23%;
 	color: white;
 	border-radius: 3px;
-	background-color: ${(props) => props.bg};
+	background-color: ${(props) => props.$bg};
 	cursor: pointer;
 	transition: 150ms ease-in;
 	&:hover {
-		background-color: ${(props) => props.hbg};
+		background-color: ${(props) => props.$hbg};
 	}
 `;
 

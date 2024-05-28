@@ -46,7 +46,7 @@ export const Board = styled.div`
 	height: 120px;
 	border-radius: 5px;
 	${(props) =>
-		props.isImage ? 'background-image: url(' + props.link + ');' : 'background-color: ' + props.link + ';'}
+		props.$isImage ? 'background-image: url(' + props.$link + ');' : 'background-color: ' + props.$link + ';'}
 
 	background-position: center center;
 	background-size: cover;

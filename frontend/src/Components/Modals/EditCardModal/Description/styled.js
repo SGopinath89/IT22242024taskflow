@@ -38,7 +38,7 @@ export const DescriptionText = styled.p`
 export const DescriptionInput = styled.textarea`
 	box-sizing: border-box;
 	width: 96.7%;
-	min-height: ${(props) => props.minHeight};
+	min-height: ${(props) => props.$minHeight};
 	background-color: rgba(0, 0, 0, 0.03);
 	border: none;
 	border-radius: 2px;

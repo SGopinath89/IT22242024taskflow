@@ -21,8 +21,8 @@ cursor: pointer;
 `;
 
 export const Image = styled.div`
-background-image: url(${props=>props.link});
-background-color: ${props=>props.bg};
+background-image: url(${props=>props.$link});
+background-color: ${props=>props.$bg};
 background-position:50%;
 background-repeat:no-repeat;
 background-size: cover;

@@ -79,14 +79,14 @@ const InviteMembers = () => {
 						setMemberMail(e.target.value);
 					}}
 				/>
-				<Button title='Add' style={{ flex: '1' }} clickCallback={handleAddClick} />
+				<Button title='Add' style={{ flex: '1' }} $clickCallback={handleAddClick} />
 			</SearchContainer>
 			<ChipContainer>
 				{members.map((member) => {
 					return <ChipComponent key={member.email} callback={handleDelete} {...member} />;
 				})}
 			</ChipContainer>
-			{members.length > 0 && <Button clickCallback={handleInviteClick} title='Invite' />}
+			{members.length > 0 && <Button $clickCallback={handleInviteClick} title='Invite' />}
 		</Container>
 	);
 };

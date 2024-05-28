@@ -65,21 +65,20 @@ const Board = (props) => {
 		<>
 			<Navbar searchString={searchString} setSearchString={setSearchString} />
 			<style.Container
-				isImage={isImage}
-				// $bgimage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}
-				$bgimage={isImage ? backgroundImageLink.split('?')[0] : ''} 
+				$isImage={isImage}
+				$bgimage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}
+				//$bgimage={isImage ? backgroundImageLink.split('?')[0] : ''} 
   				// bgColor={isImage ? '' : backgroundColor}
 			>
 				<TopBar />
-				{(loading || loadingListService) && <LoadingScreen />}
+				{/* {(loading || loadingListService) && <LoadingScreen />} */}
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='all-columns' direction='horizontal' type='column'>
 						{(provided, snapshot) => {
 							return (
 								<style.ListContainer {...provided.droppableProps} ref={provided.innerRef}>
-									<AddList boardId={id} />
-									{!loading &&
-										allLists.map((list, index) => {
+									
+									{ allLists.map((list, index) => {
 											return (
 												<List
 													searchString={searchString}
@@ -91,6 +90,7 @@ const Board = (props) => {
 											);
 										})}
 									{provided.placeholder}
+									<AddList boardId={id} />
 								</style.ListContainer>
 							);
 						}}

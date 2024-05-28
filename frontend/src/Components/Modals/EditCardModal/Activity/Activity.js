@@ -66,18 +66,18 @@ const Activity = () => {
 					<TitleWrapper>
 						<Title>Activity</Title>
 						<Button
-							clickCallback={() => setDetails((prev) => !prev)}
+							$clickCallback={() => setDetails((prev) => !prev)}
 							title={details ? 'Hide details' : 'Show details'}
 						/>
 					</TitleWrapper>
 					<CommentWrapper ref={ref}>
-						<SaveButton disabled={!newComment} onClick={handleSaveClick} show={focusComment}>
+						<SaveButton disabled={!newComment} onClick={handleSaveClick} $show={focusComment}>
 							Save
 						</SaveButton>
 						<CommentArea
 							value={newComment}
 							onChange={(e) => setNewComment(e.target.value)}
-							focus={focusComment}
+							$focus={focusComment}
 							placeholder='Write a comment...'
 						/>
 					</CommentWrapper>

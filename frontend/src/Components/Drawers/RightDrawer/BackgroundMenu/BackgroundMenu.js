@@ -18,11 +18,11 @@ const DefaultMenu = (props) => {
 	return (
 		<Container>
 			<SubContainer onClick={() => props.menuCallback('Photos by Unsplash')}>
-				<Image link='https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg' />
+				<Image $link='https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg' />
 				<Title>Photos</Title>
 			</SubContainer>
 			<SubContainer onClick={() => props.menuCallback('Colors')}>
-				<Image link='https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg' />
+				<Image $link='https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg' />
 				<Title>Colors</Title>
 			</SubContainer>
 		</Container>
@@ -74,7 +74,7 @@ const ColorsMenu = (props) => {
 			{colors.map((image) => {
 				return (
 					<PhotosWrapper key={image} onClick={() => handleClick(image)}>
-						<Image key={image} bg={image} />
+						<Image key={image} $bg={image} />
 					</PhotosWrapper>
 				);
 			})}

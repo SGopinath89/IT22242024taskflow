@@ -43,7 +43,7 @@ const Comment = (props) => {
 					<Title>{props.userName}</Title>
 					<CommentWrapper>
 						<CommentArea value={comment} onChange={(e) => setComment(e.target.value)} readOnly={edit} />
-						<ButtonContainer show={!edit}>
+						<ButtonContainer $show={!edit}>
 							<BottomButtonGroup
 								title='Save'
 								clickCallback={handleSaveClick}
@@ -52,7 +52,7 @@ const Comment = (props) => {
 								}}
 							/>
 						</ButtonContainer>
-						<LinkContainer show={edit && user.name === props.userName}>
+						<LinkContainer $show={edit && user.name === props.userName}>
 							<Link onClick={() => setEdit(false)}>Edit</Link>
 							<Link onClick={handleDeleteClick}>Delete</Link>
 						</LinkContainer>

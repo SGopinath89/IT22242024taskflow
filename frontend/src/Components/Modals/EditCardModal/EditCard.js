@@ -85,7 +85,7 @@ export default function EditCard(props) {
 									</ActivityContainer>
 								</>
 							) : (
-								<LoadingScreen image={CardLoadingSvg} />
+								<LoadingScreen $image={CardLoadingSvg} />
 							)}
 						</MainContainer>
 						<RightContainer>

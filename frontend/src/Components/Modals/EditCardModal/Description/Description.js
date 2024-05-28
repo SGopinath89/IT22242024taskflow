@@ -53,7 +53,7 @@ const Description = () => {
 				) : (
 					<DescriptionInput
 						ref={ref}
-						minHeight={inputFocus ? '5.5rem' : '2.5rem'}
+						$minHeight={inputFocus ? '5.5rem' : '2.5rem'}
 						placeholder='Add a more detailed description...'
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}

@@ -8,7 +8,7 @@ export const AddAnotherListContainer = styled.div`
   overflow-y: auto;
   min-width: 16rem;
   align-items: center;
-  background-color: ${props => props.show ? "#ebecf0" : "transparent"};
+  background-color: ${props => props.$show ? '#ebecf0' : 'transparent'};
   color: white;
   height:fit-content;  
   margin-left:0.2rem;
@@ -20,7 +20,7 @@ export const AddAnotherListContainer = styled.div`
 
 export const AddAnotherListButton = styled(Button)`
 width: 100%;
-display: ${props => !props.show ? "flex" : "none"};
+display: ${props => !props.$show ? 'flex' : 'none'};
 `;
 
 const slideAnimation = keyframes`
@@ -33,8 +33,8 @@ const slideAnimation = keyframes`
 
 export const AddListContainer = styled(AddAnotherListContainer)`
 flex-direction: column;
-display: ${props =>props.show ? "flex" : "none"};
-animation-name: ${props=> props.show && slideAnimation};
+display: ${props =>props.$show ? 'flex' : 'none'};
+animation-name: ${props=> props.$show && slideAnimation};
 animation-duration:200ms;
 animation-iteration-count: 1;
 padding: 0.5rem;

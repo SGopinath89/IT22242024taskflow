@@ -68,11 +68,11 @@ export const CommentArea = styled.textarea`
 `;
 export const ButtonContainer = styled.div`
 	padding-left: 0.1rem;
-	display: ${(props) => (props.show ? 'block' : 'none')};
+	display: ${(props) => (props.$show ? 'block' : 'none')};
 `;
 
 export const LinkContainer = styled.div`
-	display: ${(props) => (props.show ? 'flex' : 'none')};
+	display: ${(props) => (props.$show ? 'flex' : 'none')};
 	flex-direction: row;
 	gap: 0.5rem;
 	padding-left: 0.2rem;

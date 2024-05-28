@@ -119,7 +119,7 @@ const DatePopover = (props) => {
 				/>
 			</DateRangeWrapper>
 			<Wrapper>
-				<DateTitle focus={focusStart}>Start Date</DateTitle>
+				<DateTitle $focus={focusStart}>Start Date</DateTitle>
 				<Row>
 					<CheckBox
 						checked={enableStartDate}
@@ -145,7 +145,7 @@ const DatePopover = (props) => {
 							setFocusStart(true);
 							setFocusDue(false);
 						}}
-						focus={focusStart}
+						$focus={focusStart}
 						readOnly={!enableStartDate}
 						value={enableStartDate ? startDate : ''}
 						onChange={(e) => {
@@ -160,10 +160,10 @@ const DatePopover = (props) => {
 						placeholder='dd.mm.yyyy'
 					/>
 				</Row>
-				<DateTitle focus={focusDue}>Due Date</DateTitle>
+				<DateTitle $focus={focusDue}>Due Date</DateTitle>
 				<Row>
 					<CheckBox
-						checked={enableDueDate}
+						$checked={enableDueDate}
 						clickCallback={() =>
 							setEnableDueDate((prev) => {
 								setFocusDue(!prev);
@@ -186,7 +186,7 @@ const DatePopover = (props) => {
 							setFocusStart(false);
 							setFocusDue(true);
 						}}
-						focus={focusDue}
+						$focus={focusDue}
 						readOnly={!enableDueDate}
 						value={enableDueDate ? dueDate : ''}
 						onChange={(e) => {
@@ -205,7 +205,7 @@ const DatePopover = (props) => {
 							setFocusStart(false);
 							setFocusDue(true);
 						}}
-						focus={focusDue}
+						$focus={focusDue}
 						onFocus={() => {
 							setFocusStart(false);
 							setFocusDue(true);

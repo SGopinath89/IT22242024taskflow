@@ -16,10 +16,10 @@ export const Row = styled.div`
 	flex-direction: row;
 	align-items: center;
 	gap: 1rem;
-	cursor: ${(props) => (props.showHover ? 'pointer' : 'default')};
+	cursor: ${(props) => (props.$showHover ? 'pointer' : 'default')};
 	transition: 150ms ease-in;
 	&:hover {
-		background-color: ${(props) => (props.showHover ? 'rgba(0,0,0,0.02)' : 'transparent')};
+		background-color: ${(props) => (props.$showHover ? 'rgba(0,0,0,0.02)' : 'transparent')};
 	}
 `;
 
@@ -64,10 +64,10 @@ export const Percentage = styled.div`
 `;
 
 export const CheckText = styled.div`
-	text-decoration: ${(props) => (props.isChecked ? 'line-through' : 'none')};
+	text-decoration: ${(props) => (props.$isChecked ? 'line-through' : 'none')};
 	width: 100%;
 	padding: 0.3rem 0rem;
-	color: ${(props) => (props.isChecked ? '#5e6c84' : '#172b4d')};
+	color: ${(props) => (props.$isChecked ? '#5e6c84' : '#172b4d')};
 	font-size: 0.875rem;
 `;
 

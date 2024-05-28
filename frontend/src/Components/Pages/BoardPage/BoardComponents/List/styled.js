@@ -26,10 +26,11 @@ export const Header = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	gap: 0.3rem;
-`;
+	${(props) => props.$isDragging && 'background: #cfcfcf;'}
+	`;
 
 export const TitlePlaceholder = styled.div`
-	display: ${(props) => (props.show ? 'block' : 'none')};
+	display: ${(props) => (props.$show ? 'block' : 'none')};
 	width: 100%;
 	padding-left: 0.3rem;
 	border: none;
@@ -43,7 +44,7 @@ export const TitlePlaceholder = styled.div`
 `;
 
 export const TitleInput = styled.input`
-	display: ${(props) => (props.show ? 'block' : 'none')};
+	display: ${(props) => (props.$show ? 'block' : 'none')};
 	width: 100%;
 	padding-left: 0.3rem;
 	padding-bottom: 0.2rem;
@@ -66,6 +67,7 @@ export const CardContainer = styled.div`
 	height: 100%;
 	width: 100%;		
 	box-sizing: content-box;
+	${(props) => props.$isDraggingOver && 'background: #f0f0f0;'}
 `;
 
 export const CardWrapper = styled.div`
@@ -77,12 +79,12 @@ export const CardWrapper = styled.div`
 	overflow-x: hidden;
 	overflow-y: auto;
 	height:fit-content;
-	max-height: ${props=> props.dock? "73.5vh" :"70.6vh"};
+	max-height: ${props=> props.$dock? "73.5vh" :"70.6vh"};
 	justify-content: flex-start;
 	padding: 0.1rem 0.1rem 0.1rem 0rem;		
 	width: 100%;
 	${xs({
-		maxHeight: props=> props.dock? "74.6vh" :"70.6vh",
+		maxHeight: props=> props.$dock? "74.6vh" :"70.6vh",
 	})}
 	::-webkit-scrollbar {
 		-webkit-appearance: none;

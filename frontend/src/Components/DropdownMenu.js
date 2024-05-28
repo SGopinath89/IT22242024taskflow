@@ -117,7 +117,7 @@ export default function DropdownMenu(props) {
 							);
 						})
 					) : (
-						<LoadingBox image={CardLoadingSvg} />
+						<LoadingBox $image={CardLoadingSvg} />
 					)}
 				</Menu>
 			)}

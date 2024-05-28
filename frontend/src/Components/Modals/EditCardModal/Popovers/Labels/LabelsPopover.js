@@ -61,8 +61,8 @@ const LabelsPopover = (props) => {
 		return (
 			<Row>
 				<Colorbox
-					bg={props.color}
-					hbg={props.backColor}
+					$bg={props.color}
+					$hbg={props.backColor}
 					onClick={() => {
 						handleColorBoxClick(props._id, !props.selected);
 					}}
@@ -105,7 +105,7 @@ const LabelsPopover = (props) => {
 
 			<br />
 			<Button
-				clickCallback={() => {
+				$clickCallback={() => {
 					props.arrowCallback(true);
 					props.titleCallback('Create');
 				}}
@@ -129,8 +129,8 @@ const LabelsPopover = (props) => {
 						return (
 							<SmallColorBox
 								key={color.bg}
-								bg={color.bg}
-								hbg={color.hbg}
+								$bg={color.bg}
+								$hbg={color.hbg}
 								onClick={() => {
 									setCreateColor(color.bg);
 									setCreateBackColor(color.hbg);
@@ -170,8 +170,8 @@ const LabelsPopover = (props) => {
 						return (
 							<SmallColorBox
 								key={color.bg}
-								bg={color.bg}
-								hbg={color.hbg}
+								$bg={color.bg}
+								$hbg={color.hbg}
 								onClick={() => {
 									setChangeColor(color.bg);
 									setChangeBackColor(color.hbg);

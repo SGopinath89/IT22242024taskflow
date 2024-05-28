@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const Container = styled.div`	
-	/* width: ${props=>props.changeWidth}; */
+	 width: ${props=>props.$changeWidth}; 
 	min-width: 16.3rem;
 	height: fit-content;
 	background-color: #fff;
@@ -76,7 +76,7 @@ export default function BasePopover(props) {
 				horizontal: 'left',
 			}}
 		>
-			<Container changeWidth={props.width?props.width:'20vw'}>
+			<Container $changeWidth={props.width?props.width:'20vw'}>
 				<CloseButton onClick={closeCallback}>
 					<CloseIcon fontSize='1.5rem' />
 				</CloseButton>

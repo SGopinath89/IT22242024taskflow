@@ -83,9 +83,9 @@ const Checklist = (props) => {
 		};
 
 		return (
-			<Row showHover={true}>
+			<Row $showHover={true}>
 				<LeftColumn>
-					<Checkbox checked={checked} clickCallback={handleCompletedChange} />
+					<Checkbox $checked={checked} clickCallback={handleCompletedChange} />
 				</LeftColumn>
 				<RightColumn>
 					{showEdit ? (
@@ -105,7 +105,7 @@ const Checklist = (props) => {
 								onClick={() => {
 									setShowEdit(true);
 								}}
-								isChecked={checked}
+								$isChecked={checked}
 							>
 								{props.text}
 							</CheckText>
@@ -125,7 +125,7 @@ const Checklist = (props) => {
 				<LeftColumn>
 					<CheckIcon fontSize='small' />
 				</LeftColumn>
-				<RightColumn makeColumn={true}>
+				<RightColumn $makeColumn={true}>
 					<Title>{props.title}</Title>
 					<RowRightButtonsWrapper>
 						<Button

@@ -24,7 +24,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { DeleteList, listTitleUpdate } from '../../../../../Services/boardService';
 import { createCard } from '../../../../../Services/listService';
-import { Droppable, Draggable } from '@hello-pangea/dnd';
+import { Droppable, Draggable } from "@hello-pangea/dnd";
 
 const List = (props) => {
 	const dispatch = useDispatch();
@@ -92,22 +92,25 @@ const List = (props) => {
 						<Container
 							{...provided.draggableProps}
 							ref={provided.innerRef}
-							isDragging={snapshot.isDragging}
+							$isDragging={snapshot.isDragging}
 						>
-							<Header {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
-								<TitlePlaceholder show={clickTitle ? 'true': 'false'} onClick={() => setClickTitle(true)}>
+							<Header {...provided.dragHandleProps} $isDragging={snapshot.isDragging}>
+							{!clickTitle ? (
+								<TitlePlaceholder $show={clickTitle ? 'true': 'false'} onClick={() => setClickTitle(true)}>
 									{currentListTitle}
 								</TitlePlaceholder>
+							):(
 								<TitleInput
 									onBlur={() => {
 										setClickTitle(false);
 										handleChangeTitle();
 									}}
 									ref={(input) => input && input.focus()}
-									show={clickTitle ? 'true' : 'false'}
+									$show={clickTitle ? 'true' : 'false'}
 									value={currentListTitle}
 									onChange={handleOnChangeTitle}
 								/>
+								)}
 								<ClickableIcon
 									color='#656565'
 									aria-controls='basic-menu'
@@ -140,9 +143,9 @@ const List = (props) => {
 										<CardContainer
 											{...provided.droppableProps}
 											ref={provided.innerRef}
-											isDraggingOver={snapshot.isDraggingOver}
+											$isDraggingOver={snapshot.isDraggingOver}
 										>
-											<CardWrapper dock={clickFooter}>
+											<CardWrapper $dock={clickFooter ? 'true' : 'false'}>
 												{props.info.cards.filter(card=>props.searchString?card.title.toLowerCase().includes(props.searchString.toLowerCase()):true).map((card, index) => {
 													return (
 														<Card

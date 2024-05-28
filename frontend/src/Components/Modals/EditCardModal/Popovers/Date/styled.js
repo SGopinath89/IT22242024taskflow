@@ -40,14 +40,14 @@ border-radius: 3px;
 font-size: 0.875rem;
 padding: 0.3rem 0rem 0.3rem 0.3rem;
 cursor: text;
-background-color:${props=>props.focus?'#fff':'#fafbfc'};
+background-color:${props=>props.$focus?'#fff':'#fafbfc'};
 &::-webkit-inner-spin-button,
 &::-webkit-calendar-picker-indicator {
     display: none;    
     -webkit-appearance: none;
 }
 &:hover{
-    background-color:${props=>props.focus?undefined:'#ebecf0'};
+    background-color:${props=>props.$focus?undefined:'#ebecf0'};
 }
 &:read-only{
     cursor: not-allowed;
@@ -58,7 +58,7 @@ background-color:${props=>props.focus?'#fff':'#fafbfc'};
 `;
 
 export const DateTitle = styled(Title)`
-color : ${props=>props.focus? '#0079BF':'#5e6c84'};
+color : ${props=>props.$focus? '#0079BF':'#5e6c84'};
 `;
 
 export const SaveButton = styled.button`

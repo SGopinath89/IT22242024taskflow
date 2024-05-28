@@ -71,10 +71,10 @@ export const Label = styled.div`
 	padding: 0rem 0.75rem;
 	color: white;
 	width: auto;
-	background-color: ${(props) => props.color};
+	background-color: ${(props) => props.$color};
 	cursor: pointer;
 	&:hover {
-		background-color: ${(props) => props.hoverColor};
+		background-color: ${(props) => props.$hoverColor};
 	}
 `;
 
@@ -110,7 +110,7 @@ export const DateDropDown = styled.div`
 `;
 
 export const CompleteLabel = styled.div`
-	display: ${(props) => (props.show ? 'block' : 'none')};
+	display: ${(props) => (props.$show ? 'block' : 'none')};
 	background-color: #61bd4f;
 	color: #fff;
 	font-size: 0.75rem;

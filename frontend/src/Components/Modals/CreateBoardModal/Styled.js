@@ -37,7 +37,7 @@ export const TitleCard = styled.div`
 `;
 
 export const Panel = styled.div`
-  background-image: url(${(props) => props.link});
+  background-image: url(${(props) => props.$link});
   background-size: cover;
   background-position: center center;
   border-radius: 3px;
@@ -206,7 +206,7 @@ export const PhotosCard = styled.div`
 `;
 
 export const PhotoWrapper = styled.div`
-  background-image: url(${(props) => props.link});
+  background-image: url(${(props) => props.$link});
   border: none;
   width: 1.5rem;
   height: 1.5rem;
@@ -225,7 +225,7 @@ export const Photo = styled.div`
   height: 100%;
   border-radius: 3px;
   background-color: ${(props) =>
-    props.show ? "rgba(0,0,0,0.8)" : "rgba(255,255,255,0.0)"};
+    props.$show ? "rgba(0,0,0,0.8)" : "rgba(255,255,255,0.0)"};
   cursor: pointer;
   transition: 150ms ease-in;
   &:hover {
@@ -237,7 +237,7 @@ export const DoneIconWrapper = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 3px;
-  display: ${(props) => (props.show ? "flex" : "none")};
+  display: ${(props) => (props.$show ? "flex" : "none")};
   justify-content: center;
   align-items: center;
   color: white;

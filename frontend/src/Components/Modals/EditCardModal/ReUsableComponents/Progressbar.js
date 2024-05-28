@@ -10,8 +10,8 @@ export const ProgressBar = styled.div`
 
 export const ProgressBarFill = styled.div`
 	height: 0.5rem;
-	width: ${(props) => props.value}%;
-	background-color: ${(props) => (props.complete ? '#61bd4f' : '#5ba4cf')};
+	width: ${(props) => props.$value}%;
+	background-color: ${(props) => (props.$complete ? '#61bd4f' : '#5ba4cf')};
 	border-radius: 1rem;
 	transition: 400ms ease-in;
 `;
@@ -20,7 +20,7 @@ const Progressbar = (props) => {
 	const { value } = props;
 	return (
 		<ProgressBar>
-			<ProgressBarFill complete={value === 100 ? true : false} value={value} />
+			<ProgressBarFill $complete={value === 100 ? true : false} $value={value} />
 		</ProgressBar>
 	);
 };

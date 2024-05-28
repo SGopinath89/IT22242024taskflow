@@ -7,7 +7,7 @@ import SizeTypeTwo from './SizeTypeTwo';
 import Button from '../../ReUsableComponents/Button';
 import { coverUpdate } from '../../../../../Services/cardService';
 const ColorBox = styled(SmallColorBox)`
-	border: 2px solid ${(props) => (props.selected ? '#0079bf' : 'transparent')};
+	border: 2px solid ${(props) => (props.$selected ? '#0079bf' : 'transparent')};
 	border-radius: 3px;
 `;
 
@@ -25,7 +25,7 @@ const SizeWrapper = styled.div`
 	flex: 1;
 	width: 100%;
 	height: fit-content;
-	cursor: ${(props) => (props.show ? 'pointer' : 'default')};
+	cursor: ${(props) => (props.$show ? 'pointer' : 'default')};
 `;
 
 const CoverPopover = () => {
@@ -44,16 +44,16 @@ const CoverPopover = () => {
 		<Container>
 			<Title>Size</Title>
 			<SizeContainer>
-				<SizeWrapper onClick={() => handleColorClick(card.cover.color, true)} show={card.cover.color}>
+				<SizeWrapper onClick={() => handleColorClick(card.cover.color, true)} $show={card.cover.color}>
 					<SizeTypeOne
-						selected={card.cover.color && card.cover.isSizeOne !== null && card.cover.isSizeOne}
-						color={card.cover.color}
+						$selected={card.cover.color && card.cover.isSizeOne !== null && card.cover.isSizeOne}
+						$color={card.cover.color}
 					/>
 				</SizeWrapper>
 				<SizeWrapper onClick={() => handleColorClick(card.cover.color, false)} show={card.cover.color}>
 					<SizeTypeTwo
-						selected={card.cover.color && card.cover.isSizeOne !== null && !card.cover.isSizeOne}
-						color={card.cover.color}
+						$selected={card.cover.color && card.cover.isSizeOne !== null && !card.cover.isSizeOne}
+						$color={card.cover.color}
 					/>
 				</SizeWrapper>
 			</SizeContainer>
@@ -65,15 +65,15 @@ const CoverPopover = () => {
 							onClick={() => {
 								handleColorClick(color.bg, card.cover.isSizeOne === null ? true : card.cover.isSizeOne);
 							}}
-							selected={card.cover.color === color.bg ? true : false}
+							$selected={card.cover.color === color.bg ? true : false}
 							key={color.bg}
-							bg={color.bg}
-							hbg={color.hbg}
+							$bg={color.bg}
+							$hbg={color.hbg}
 						></ColorBox>
 					);
 				})}
 			</SmallColorsContainer>
-			<Button title='Remove' style={{ marginTop: '1rem' }} clickCallback={handleRemoveClick} />
+			<Button title='Remove' style={{ marginTop: '1rem' }} $clickCallback={handleRemoveClick} />
 		</Container>
 	);
 };

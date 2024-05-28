@@ -18,8 +18,8 @@ import styled from 'styled-components';
   	padding-top: 3rem;
   	height: fit-content;
   	background-size: cover;
-	  ${(props) => props.isImage && `background-image: url(${props.bgimage});`}
-	
+	  ${(props) =>
+		props.$isImage ? 'background-image: url(' + props.$bgimage + ');' : 'background-color: ' + props.$bgimage + ';'}	
 `;
 
 

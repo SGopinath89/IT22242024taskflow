@@ -38,7 +38,7 @@ const TitleCardComponent = (props) => {
 
   return (
     <style.TitleCard>
-      <style.Panel link={props.link}>
+      <style.Panel $link={props.link}>
         <style.PanelWrapper>
           <style.TitleInput
             placeholder="Add board title"
