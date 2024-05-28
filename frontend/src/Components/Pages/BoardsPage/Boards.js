@@ -26,7 +26,7 @@ const Boards = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    document.title = "Boards | Trello Clone"
+    document.title = "Boards | TaskFlow"
   }, [])
 
   return (

@@ -1,15 +1,28 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-	${(props) =>
-		props.isImage ? 'background-image: url(' + props.bgImage + ');' : 'background-color: ' + props.bgImage + ';'}
-	background-repeat: no-repeat;
-	background-position: 50%;
-	zoom: 1;
-	padding-top: 3rem;
-	height: fit-content;
-	background-size: cover;
+// export const Container = styled.div`
+// 	${(props) => props.isImage ? 'background-image: url(' + $bgimage + ');' : 'background-color: ' + $bgcolor + ';'
+// 	}
+// 	background-repeat: no-repeat;
+// 	background-position: 50%;
+// 	zoom: 1;
+// 	padding-top: 3rem;
+// 	height: fit-content;
+// 	background-size: cover;
+// `;
+
+	export const Container = styled.div`
+  	background-repeat: no-repeat;
+  	background-position: 50%;
+  	zoom: 1;
+  	padding-top: 3rem;
+  	height: fit-content;
+  	background-size: cover;
+	  ${(props) => props.isImage && `background-image: url(${props.bgimage});`}
+	
 `;
+
+
 
 export const ListContainer = styled.div`
 	box-sizing: border-box;

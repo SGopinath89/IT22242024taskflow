@@ -6,6 +6,7 @@
     "@atlaskit/css-reset": "^6.9.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@hello-pangea/dnd": "^16.6.0",
     "@mui/icons-material": "^5.15.17",
     "@mui/material": "^5.15.17",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",

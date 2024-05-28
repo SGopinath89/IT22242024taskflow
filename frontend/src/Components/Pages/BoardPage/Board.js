@@ -9,22 +9,24 @@ import { getBoard } from '../../../Services/boardsService';
 import { getLists } from '../../../Services/boardService';
 import { updateCardOrder, updateListOrder } from '../../../Services/dragAndDropService';
 import LoadingScreen from '../../LoadingScreen';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { useParams } from "react-router-dom";
 
 const Board = (props) => {
 	/* props.match.params.id */
+	const { id } = useParams();
 	const dispatch = useDispatch();
 	const { backgroundImageLink, isImage, loading, title } = useSelector((state) => state.board);
 	const { allLists, loadingListService } = useSelector((state) => state.list);
 	const [searchString, setSearchString] = useState('');
-	const boardId = props.match.params.id;
+	// const boardId = props.match.params.id;
 	useEffect(() => {
-		getBoard(props.match.params.id, dispatch);
-		getLists(boardId, dispatch);
-	}, [props.match.params.id, dispatch, boardId]);
+		getBoard(id, dispatch);
+		getLists(id, dispatch);
+	}, [id, dispatch]);
 
 	useEffect(() => {
-		document.title = title + ' | Trello Clone';
+		document.title = title + ' | TaskFlow';
 	}, [title]);
 
 	const onDragEnd = async (result) => {
@@ -37,7 +39,7 @@ const Board = (props) => {
 					sourceIndex: source.index,
 					destinationIndex: destination.index,
 					listId: draggableId,
-					boardId: boardId,
+					boardId: id,
 					allLists: allLists,
 				},
 				dispatch
@@ -52,7 +54,7 @@ const Board = (props) => {
 				sourceIndex: source.index,
 				destinationIndex: destination.index,
 				cardId: draggableId,
-				boardId: boardId,
+				boardId: id,
 				allLists: allLists,
 			},
 			dispatch
@@ -64,7 +66,9 @@ const Board = (props) => {
 			<Navbar searchString={searchString} setSearchString={setSearchString} />
 			<style.Container
 				isImage={isImage}
-				bgImage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}
+				// $bgimage={isImage ? backgroundImageLink.split('?')[0] : backgroundImageLink}
+				$bgimage={isImage ? backgroundImageLink.split('?')[0] : ''} 
+  				// bgColor={isImage ? '' : backgroundColor}
 			>
 				<TopBar />
 				{(loading || loadingListService) && <LoadingScreen />}
@@ -73,6 +77,7 @@ const Board = (props) => {
 						{(provided, snapshot) => {
 							return (
 								<style.ListContainer {...provided.droppableProps} ref={provided.innerRef}>
+									<AddList boardId={id} />
 									{!loading &&
 										allLists.map((list, index) => {
 											return (
@@ -81,12 +86,11 @@ const Board = (props) => {
 													key={list._id}
 													index={index}
 													info={list}
-													boardId={boardId}
+													boardId={id}
 												/>
 											);
 										})}
 									{provided.placeholder}
-									<AddList boardId={boardId} />
 								</style.ListContainer>
 							);
 						}}

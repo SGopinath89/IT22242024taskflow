@@ -28,7 +28,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    document.title = "Log in to Trello Clone"
+    document.title = "Log in to TaskFlow"
   }, [])
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ const Login = () => {
               <Title>Log in to Trello</Title>
               <Input
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter Email"
                 required
                 value={userInformations.email}
                 onChange={(e) =>
@@ -61,7 +61,7 @@ const Login = () => {
               />
               <Input
                 type="password"
-                placeholder="Enter password"
+                placeholder="Enter Password"
                 required
                 value={userInformations.password}
                 onChange={(e) =>

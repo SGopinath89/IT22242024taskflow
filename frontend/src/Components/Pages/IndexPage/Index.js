@@ -16,7 +16,7 @@ import {
 const Index = () => {
   let navigate = useNavigate();
   useEffect(() => {
-    document.title = "Trello Clone"
+    document.title = "TaskFlow"
   }, [])
   return (
     <>
@@ -25,11 +25,11 @@ const Index = () => {
         <Content>
           <LeftSide>
             <LeftWrapper>
-              <Title>Trello helps teams move work forward.</Title>
+              <Title>TaskFlow TaskManagement System.</Title>
               <Text>
                 Collaborate, manage projects, and reach new productivity peaks.
                 From high rises to the home office, the way your team works is
-                unique—accomplish it all with Trello.
+                unique—accomplish it all with TaskFlow.
               </Text>
               <Button onClick={() => navigate("/register")}>
                 Sign up - it's free

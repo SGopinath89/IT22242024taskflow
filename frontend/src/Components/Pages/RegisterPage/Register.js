@@ -33,7 +33,7 @@ const Register = () => {
   });
 
   useEffect(() => {
-    document.title = "Create a Trello Account"
+    document.title = "Create a TaskFlow Account"
   }, [])
 
   const handleSubmit = async (e) => {
@@ -56,7 +56,7 @@ const Register = () => {
               <Title>Sign up for your account</Title>
               <Input
                 type="text"
-                placeholder="Enter name"
+                placeholder="Enter Name"
                 required
                 value={userInformations.name}
                 onChange={(e) =>
@@ -68,7 +68,7 @@ const Register = () => {
               />
               <Input
                 type="text"
-                placeholder="Enter surname"
+                placeholder="Enter Surname"
                 required
                 value={userInformations.surname}
                 onChange={(e) =>
@@ -80,7 +80,7 @@ const Register = () => {
               />
               <Input
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter Email"
                 required
                 value={userInformations.email}
                 onChange={(e) =>
@@ -92,7 +92,7 @@ const Register = () => {
               />
               <Input
                 type="password"
-                placeholder="Enter password"
+                placeholder="Enter Password"
                 required
                 value={userInformations.password}
                 onChange={(e) =>
@@ -104,7 +104,7 @@ const Register = () => {
               />
               <Input
                 type="password"
-                placeholder="Confirm password"
+                placeholder="Confirm Password"
                 required
                 value={userInformations.repassword}
                 onChange={(e) =>
@@ -119,7 +119,7 @@ const Register = () => {
                 <Link fontSize="0.75rem">Terms of Service</Link> and{" "}
                 <Link fontSize="0.75rem">Privacy Policy</Link>.
               </Text>
-              <Button type="submit" disabled={pending}>
+              <Button type="Submit" disabled={pending}>
                 Complete
               </Button>
               <Hr />

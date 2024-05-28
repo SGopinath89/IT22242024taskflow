@@ -29,7 +29,7 @@ export const Header = styled.div`
 `;
 
 export const TitlePlaceholder = styled.div`
-	display: ${(props) => (props.show ? 'none' : 'block')};
+	display: ${(props) => (props.show ? 'block' : 'none')};
 	width: 100%;
 	padding-left: 0.3rem;
 	border: none;

@@ -24,7 +24,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { DeleteList, listTitleUpdate } from '../../../../../Services/boardService';
 import { createCard } from '../../../../../Services/listService';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from '@hello-pangea/dnd';
 
 const List = (props) => {
 	const dispatch = useDispatch();
@@ -95,7 +95,7 @@ const List = (props) => {
 							isDragging={snapshot.isDragging}
 						>
 							<Header {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
-								<TitlePlaceholder show={clickTitle} onClick={() => setClickTitle(true)}>
+								<TitlePlaceholder show={clickTitle ? 'true': 'false'} onClick={() => setClickTitle(true)}>
 									{currentListTitle}
 								</TitlePlaceholder>
 								<TitleInput
@@ -104,7 +104,7 @@ const List = (props) => {
 										handleChangeTitle();
 									}}
 									ref={(input) => input && input.focus()}
-									show={clickTitle}
+									show={clickTitle ? 'true' : 'false'}
 									value={currentListTitle}
 									onChange={handleOnChangeTitle}
 								/>
