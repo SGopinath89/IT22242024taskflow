@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
 import { useNavigate } from 'react-router-dom';
+import tflogo from '../Images/Black Beige Minimalist Simple Modern Typography Vanilla Cosmetics Logo.svg';
 
 const Container = styled.div`
 	height: 3rem;
@@ -80,7 +81,7 @@ const Navbar = (props) => {
 						onClick={() => {
 							navigate('/boards');
 						}}
-						src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif'
+						src={tflogo}
 					/>
 				</LogoContainer>
 				<DropdownContainer>
