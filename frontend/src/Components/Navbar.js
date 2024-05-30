@@ -81,7 +81,9 @@ const Navbar = (props) => {
 						onClick={() => {
 							navigate('/boards');
 						}}
-						src={tflogo}
+						src={tflogo
+							
+						}
 					/>
 				</LogoContainer>
 				<DropdownContainer>
