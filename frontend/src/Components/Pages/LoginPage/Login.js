@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
+import logo from '../LoginPage/Black Beige Minimalist Simple Modern Typography Vanilla Cosmetics Logo.svg';
 import {
   BgContainer,
   Container,
@@ -41,7 +42,7 @@ const Login = () => {
       </BgContainer>
       <Container>
         <TrelloIconContainer onClick={() => navigate("/")}>
-          <Icon src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg" />
+          <Icon src={logo} />
         </TrelloIconContainer>
         <FormSection>
           <FormCard>
