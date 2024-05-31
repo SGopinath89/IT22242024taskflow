@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
 import { useNavigate } from 'react-router-dom';
-import tflogo from '../Images/Black Beige Minimalist Simple Modern Typography Vanilla Cosmetics Logo.svg';
+import tflogo from '../Images/logo-no-background.png';
 
 const Container = styled.div`
 	height: 3rem;
