@@ -1,4 +1,5 @@
 const boardService = require('../services/board.services.js' );
+const boardModel = require('../models/board.js');
 
 // const create = async (req, res) => {
 // 	try {
@@ -51,15 +52,31 @@ const getAll = async (req, res) => {
 	
 };
 
+const deleteBoard = async (req, res) => {
+    try {
+        const { boardId } = req.params;
+
+	await boardService.deleteBoard(boardId,(error,result)=>{
+		if(error) return res.status(500).send(error);
+		return res.status(200).send(result);
+	})
+    
+    } catch (error) {
+        return res.status(500).json({ message: 'An error occurred while deleting the board', error: error.message });
+    }
+};
+
 const getById = async (req, res) => {
 
 	try {
+		const boardId= req.params.id;
 		const validate = req.user.boards.filter((board) => board === req.params.id);
 	if (!validate)
 		return res.status(400).send({ message: 'You are not authorized to view this board' });
 
-	await boardService.getById(req.params.id, (error, result) => {
+	await boardService.getById(boardId, (error, result) => {
 		if (error) return res.status(400).send(error);
+		return res.status(200).send(result);
 	});
 	} catch (error) {
 		return res.status(500).send({message: "An error occurred while fetching the boards.", error: error.message})
@@ -168,4 +185,5 @@ module.exports = {
 	updateBoardDescription,
 	updateBackground,
 	addMember,
+	deleteBoard
 };

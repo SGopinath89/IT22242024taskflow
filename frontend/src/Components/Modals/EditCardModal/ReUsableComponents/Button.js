@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 export const ButtonStyled = styled.button`
 	display: inline-flex;
@@ -23,8 +24,14 @@ export const ButtonStyled = styled.button`
 `;
 
 const Button = (props) => {
-	const { title, clickCallback} = props;
-	return <ButtonStyled {...props} onClick={clickCallback}>{title}</ButtonStyled>;
+	const { title, $clickCallback} = props;
+	return <ButtonStyled {...props} onClick={$clickCallback}>{title}</ButtonStyled>;
+};
+
+Button.propTypes = {
+	title: PropTypes.string.isRequired,
+	$clickCallback: PropTypes.func.isRequired,
+	rest: PropTypes.object, // Add any additional prop types you expect
 };
 
 export default Button;

@@ -7,11 +7,30 @@ const helperMethods = require('./helperMethod.js');
 const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
 	try {
 		
-		const card = await cardModel.findById(cardId);
-		const list = await listModel.findById(listId);
-		const board = await boardModel.findById(boardId);
-		const member = await userModel.findById(memberId);
+		// const card = await cardModel.findById(cardId);
+		// const list = await listModel.findById(listId);
+		// const board = await boardModel.findById(boardId);
+		// const member = await userModel.findById(memberId);
 
+		const card = await cardModel.findById(cardId);
+		if (!card) {
+			return callback({ errMessage: 'Card not found' });
+		}
+
+		const list = await listModel.findById(listId);
+		if (!list) {
+			return callback({ errMessage: 'List not found' });
+		}
+
+		const board = await boardModel.findById(boardId);
+		if (!board) {
+			return callback({ errMessage: 'Board not found' });
+		}
+
+		const member = await userModel.findById(memberId);
+		if (!member) {
+			return callback({ errMessage: 'Member not found' });
+		}
 		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
@@ -57,18 +76,24 @@ const deleteMember = async (cardId, listId, boardId, user, memberId, callback) =
 		card.members = card.members.filter((a) => a.user.toString() !== memberId.toString());
 		await card.save();
 
-		const tempMember = await userModel.findById(memberId);
+		let action;
+		if (user._id.toString() === memberId.toString()) {
+			action = `left ${card.title}`;
+		} else {
+			const tempMember = await userModel.findById(memberId);
+			if (!tempMember) {
+				return callback({ message: 'Member not found' });
+			}
+			action = `removed '${tempMember.name}' from ${card.title}`;
+		}
 
 		board.activity.unshift({
 			user: user._id,
 			name: user.name,
-			action:
-				tempMember.name === user.name
-					? `left ${card.title}`
-					: `removed '${tempMember.name}' from ${card.title}`,
+			action,
 			color: user.color,
 		});
-		board.save();
+		await board.save();
 
 		return callback(false, { message: 'success' });
 	} catch (error) {

@@ -18,7 +18,7 @@ const login= async(email,callback)=>{
         }
         return callback(false,{...user.toJSON()});
     } catch (error) {
-        return callback({message:error.message});
+        return callback({message:"An error occurred While User login"});
     }
 }
 
@@ -47,7 +47,7 @@ const getUserWithEmail= async(email, callback)=>{
     try {
         let user= await userModel.findOne({email});
         if(!user){
-            return callback({message: "Email not found ", details:error.message});
+            return callback({message: "Email not found "});
         }
         return callback(false,{...user.toJSON()});
     } catch (error) {
