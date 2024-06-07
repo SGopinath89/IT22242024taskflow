@@ -101,11 +101,31 @@ const getAll = async (userId, callback) => {
 const getById = async (id, callback) => {
 	try {
 		const board = await boardModel.findById(id);
-		return callback(false, board);
+		return callback(null, board);
 	} catch (error) {
 		return callback({ message: 'Error fetching board', details: error.message });
 	}
 };
+
+const deleteBoard=async(id,callback)=>{
+	try {
+		const findBoard = await boardModel.findById(id);
+		if (!findBoard) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
+
+		const validate = req.user.boards.filter((board) => board === req.params.id);
+		if (!validate)
+			return res.status(401).send({ message: 'You are not authorized to view this board' });
+	
+
+		await boardModel.findByIdAndDelete(boardId);
+		return callback(false, { message: 'Board deleted successfully' });
+	
+	} catch (error) {
+		return callback({ message: 'Error fetching board', details: error.message });
+	}
+}
 
 const getActivityById = async (id, callback) => {
 	try {
@@ -181,32 +201,57 @@ const addMember = async (id, members, user, callback) => {
 		if(!board){
 			return callback({message:"board not found"});
 		}
+		// await Promise.all(
+		// 	members.map(async (member) => {
+		// 		const newMember = await userModel.findOne({ email: member.email });
+		// 		console.log(newMember);
+		// 		newMember.boards.push(board._id);
+		// 		await newMember.save();
+		// 		console.log(newMember);
 
-		await Promise.all(
-			members.map(async (member) => {
-				const newMember = await userModel.findOne({ email: member.email });
-				newMember.boards.push(board._id);
-				await newMember.save();
-				board.members.push({
-					user: newMember._id,
-					name: newMember.name,
-					surname: newMember.surname,
-					email: newMember.email,
-					color: newMember.color,
-					role: 'member',
-				});
+		// 		board.members.push({
+		// 			user: newMember._id,
+		// 			name: newMember.name,
+		// 			surname: newMember.surname,
+		// 			email: newMember.email,
+		// 			color: newMember.color,
+		// 			role: 'member',
+		// 		});
 
-				board.activity.push({
-					user: user.id,
-					name: user.name,
-					action: `added user '${newMember.name}' to this board`,
-					color: user.color,
-				});
-			})
-		);
+		// 		board.activity.push({
+		// 			user: user.id,
+		// 			name: user.name,
+		// 			action: `added user '${newMember.name}' to this board`,
+		// 			color: user.color,
+		// 		});
+		// 	})
+		// );
+		// await board.save();
+
+		// return callback(false, board.members);
+
+		members.forEach(member => {
+			board.members.push({
+				name: member.name,
+				surname: member.surname,
+				email: member.email,
+				color: member.color,
+				role: 'member',
+			});
+
+			board.activity.push({
+				user: user.id,
+				name: user.name,
+				action: `added user '${member.name}' to this board`,
+				color: user.color,
+			});
+		});
+
 		await board.save();
 
-		return callback(false, board.members);
+		return callback(null, board.members);
+
+
 	} catch (error) {
 		return callback({ message: 'failed to add members', details: error.message });
 	}
@@ -223,4 +268,5 @@ module.exports = {
 	updateBoardDescription,
 	updateBackground,
 	addMember,
+	deleteBoard
 };

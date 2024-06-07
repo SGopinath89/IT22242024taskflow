@@ -9,14 +9,20 @@ const register= async( req,res)=>{
         return res.status(400).send({message: "Fields are missing"});
     }
 
+    const existingUser = await user.findOne({ email });
+        if (existingUser) {
+            return res.status(400).send({ message: "User with this email already exists" });
+        }
+
+
     const salt= bcrypt.genSaltSync(10);
     const hashedPassword= bcrypt.hashSync(password,salt);
     req.body.password= hashedPassword;
 
     await userService.register(req.body,(error,result)=>{
         if(error)
-            return res.status(400).send({message:error.message});
-    return res.status(201).send(result);
+            return res.status(500).send({message:error.message});
+    return res.status(200).send(result);
 });
 };
 
@@ -28,7 +34,7 @@ const login =async(req,res)=>{
 
     await userService.login(email,(error,result)=>{
         if(error)
-            return res.status(400).send({message:error.message})
+            return res.status(500).send(error)
 
         const hashedPassword= result.password;
         if(!bcrypt.compareSync(password,hashedPassword))
@@ -49,6 +55,10 @@ const getUser = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
+        }
+
+        if (req.user.id !== id && !req.user.isAdmin) {
+            return res.status(401).json({ message: "You are not authorized to access this user's details" });
         }
 
         const sanitizedUser = {

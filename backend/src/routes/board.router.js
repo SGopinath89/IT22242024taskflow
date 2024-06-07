@@ -8,6 +8,8 @@ route.post('/create', boardController.create);
 route.get('/', boardController.getAll);
 route.get('/:id', boardController.getById);
 route.get('/:id/activity', boardController.getActivityById);
+route.delete('/:id', boardController.deleteBoard);
+
 
 
 route.post('/:boardId/add-member',boardController.addMember);

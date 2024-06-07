@@ -55,9 +55,10 @@ const LogoContainer = styled.div`
 `;
 
 const TrelloLogo = styled.img`
-	width: 75px;
-	height: 15px;
+	width: 40px;
+	height: 40px;
 	cursor: pointer;
+	object-fit: cover;
 `;
 
 const DropdownContainer = styled.div`
