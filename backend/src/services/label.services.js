@@ -111,22 +111,24 @@ const updateLabelSelection = async (cardId, listId, boardId, labelId, user, sele
 			return res.status(400).send({ message: 'You are not authorized to access the label' });
 		}
 
-		card.labels = card.labels.map((item) => {
-			if (item._id.toString() === labelId.toString()) {
-				item.selected = selected;
-			}
-			return item;
-		});
-		await card.save();
 
-		const updatedLabel={
-			labelId: labelId,
-            text: label.text,
-            color: label.color,
-			backcolor: label.backColor
+		const updatedLabel = card.labels.find((item) => item._id.toString() === labelId.toString());
+		if (updatedLabel) {
+			updatedLabel.selected = selected;
+			await card.save();
+
+			const responseLabel = {
+				labelId: updatedLabel._id,
+				text: updatedLabel.text,
+				color: updatedLabel.color,
+				backcolor: updatedLabel.backcolor,
+				selected: updatedLabel.selected
+			};
+
+			return callback(false, { message: 'Success!', updatedLabel: responseLabel });
+		} else {
+			return callback({ message: 'Label not found' });
 		}
-
-		return callback(false, { message: 'Success!' ,updatedLabel});
 	} catch (error) {
 		return callback({ errMessage: 'Error selecting a label in the card', details: error.message });
 	}

@@ -7,20 +7,24 @@ const create = async (req, res) => {
 
 	const validate = req.user.boards.filter((board) => board === boardId);
 	if (!validate)
-		return res.status(400).send({ Message: 'You are not authorized to access  ' });
+		return res.status(401).send({ Message: 'You are not authorized to access  ' });
 
 	await listService.create({ title: title, owner: boardId }, req.user, (error, result) => {
 		if (error) return res.status(500).send(error);
-		return res.status(201).send(result);
+		return res.status(200).send(result);
 	});
 };
 
 const getAll = async (req, res) => {
 	const boardId = req.params.id;
 
+	if(!boardId){
+		return res.status(400).send({ Message: 'Board Id not provided' });
+	}
+
 	const validate = req.user.boards.filter((board) => board === boardId);
 	if (!validate)
-		return res.status(400).send({ Message: 'You are not authorized to get list ' });
+		return res.status(401).send({ Message: 'You are not authorized to get list ' });
 
 	await listService.getAll(boardId, (error, result) => {
 		if (error) return res.status(500).send(error);

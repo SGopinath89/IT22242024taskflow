@@ -25,7 +25,7 @@ const create = async (model, user, callback) => {
 		return callback(false, newList);
 	} catch (error) {
 		
-		return callback({ errMessage: 'Something went wrong', details: error.message });
+		return callback({ errMessage: 'Error Creating a list', details: error.message });
 	}
 };
 
@@ -142,7 +142,7 @@ const updateListTitle = async (listId, boardId, user, title, callback) => {
 		const list = await listModel.findById(listId.toString());
 		
 		const validate = board.lists.filter((list) => list.id === listId);
-		if (!validate) return callback({ errMessage: 'List or board informations are wrong' });
+		if (!validate) return callback({ errMessage: 'List or board information are wrong' });
 		
 		if (!user.boards.filter((board) => board === boardId))
 			return callback({ errMessage: 'You cannot delete a list that does not hosted by your boards' });

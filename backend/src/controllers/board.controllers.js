@@ -1,22 +1,6 @@
 const boardService = require('../services/board.services.js' );
 const boardModel = require('../models/board.js');
-
-// const create = async (req, res) => {
-// 	try {
-// 		const { title, backgroundImageLink } = req.body;
-
-// 		if (!title || !backgroundImageLink) {
-// 			return res.status(400).send({ message: 'Image Cannot be null' });
-// 		}
-// 		await boardService.create(req, (error, result) => {
-// 			if (error) return res.status(500).json({message:error.message});
-// 			result.__v = undefined;
-// 			return res.status(201).send(result);
-// 		});
-// 	} catch (error) {
-// 		return res.status(500).json({ message: error.message });
-// 	}
-// };
+const board = require('../models/board.js');
 
 const create= async (req,res) => {
 	try {
@@ -30,7 +14,7 @@ const create= async (req,res) => {
 			if (error) 
 				return res.status(500).send({message:error.message});
 					result.__v = undefined;
-					return res.status(201).send(result);
+					return res.status(200).send(result);
 		});
 	} catch (error) {
 		return res.status(500).send({message: error.message})
@@ -40,8 +24,13 @@ const create= async (req,res) => {
 const getAll = async (req, res) => {
 	try {
 	const userId = req.user._id;
-	await boardService.getAll(userId, (err, result) => {
-		if (err) return res.status(400).send(err);
+	await boardService.getAll(userId, (error, result) => {
+		if (error) {
+			if (error.message === 'User not found') {
+				return res.status(400).send({ message: error.message });
+			}
+			return res.status(500).send({ message: 'An error  occurred while fetching the boards', error: error.message });
+		}
 		return res.status(200).send(result);
 	});
 	} catch (error) {
@@ -54,7 +43,7 @@ const getAll = async (req, res) => {
 
 const deleteBoard = async (req, res) => {
     try {
-        const { boardId } = req.params;
+        const { id: boardId } = req.params;
 
 	await boardService.deleteBoard(boardId,(error,result)=>{
 		if(error) return res.status(500).send(error);
@@ -69,29 +58,36 @@ const deleteBoard = async (req, res) => {
 const getById = async (req, res) => {
 
 	try {
-		const boardId= req.params.id;
+		const { id: boardId } = req.params;
+		if(!boardId){
+			return res.status(400).send({message:"Missing Required Fields "});
+		}
 		const validate = req.user.boards.filter((board) => board === req.params.id);
-	if (!validate)
-		return res.status(400).send({ message: 'You are not authorized to view this board' });
+		if (!validate)
+			return res.status(401).send({ message: 'You are not authorized to view this board' });
 
 	await boardService.getById(boardId, (error, result) => {
-		if (error) return res.status(400).send(error);
-		return res.status(200).send(result);
+		if (error) return res.status(500).send({message:"An error occurred while fetching the boards.", error:error.message});
+			return res.status(200).send(result);
 	});
 	} catch (error) {
-		return res.status(500).send({message: "An error occurred while fetching the boards.", error: error.message})
+			return res.status(500).send({message: "An error occurred while fetching the boards.", error: error.message})
 	}
 	
 };
 
 const getActivityById = async (req, res) => {
 	try {
+		const board= req.params.id;
+		if(!board){
+			return res.status(400).send({message:"Missing Required Fields "});
+		}
 		const validate = req.user.boards.filter((board) => board === req.params.id);
 		if (!validate)
-			return res.status(400).send({ Message: 'You are not authorized to view this board' });
+			return res.status(401).send({ Message: 'You are not authorized to view this board' });
 	
-		await boardService.getActivityById(req.params.id, (err, result) => {
-			if (err) return res.status(400).send(err);
+		await boardService.getActivityById(board, (error, result) => {
+			if (error) return res.status(500).send(error);
 			return res.status(200).send(result);
 		});
 	} catch (error) {
@@ -103,13 +99,17 @@ const updateBoardTitle = async (req, res) => {
 	try {
 		const validate = req.user.boards.filter((board) => board === req.params.id);
 		if (!validate)
-			return res.status(400).send({ errMessage: 'You are not authorized to access this board' });
+			return res.status(401).send({ errMessage: 'You are not authorized to access this board' });
 
 		const { boardId } = req.params;
 		const { title } = req.body;
+
+		if(!boardId || !title){
+			return res.status(400).send({message:"Missing Required Fields "});
+		}
 	
 		await boardService.updateBoardTitle(boardId, title, req.user, (error, result) => {
-			if (error) return res.status(400).send(error);
+			if (error) return res.status(500).send(error);
 			return res.status(200).send(result);
 		});
 	} catch (error) {
@@ -122,13 +122,17 @@ const updateBoardDescription = async (req, res) => {
 	try {
 		const validate = req.user.boards.filter((board) => board === req.params.id);
 		if (!validate)
-			return res.status(400).send({ errMessage: 'You are not authorized to access this board' });
+			return res.status(401).send({ errMessage: 'You are not authorized to access this board' });
 
 		const { boardId } = req.params;
 		const { description } = req.body;
+
+		if(!boardId || !description){
+			return res.status(400).send({message:"Missing Required Fields "});
+		}
 	
 		await boardService.updateBoardDescription(boardId, description, req.user, (error, result) => {
-			if (error) return res.status(400).send(error);
+			if (error) return res.status(500).send(error);
 			return res.status(200).send(result);
 		});
 		} catch (error) {
@@ -142,13 +146,17 @@ const updateBackground = async (req, res) => {
 	try {
 		const validate = req.user.boards.filter((board) => board === req.params.id);
 		if (!validate)
-			return res.status(400).send({ errMessage: 'You are not authorized to access this board' });
+			return res.status(401).send({ errMessage: 'You are not authorized to access this board' });
 
 		const { boardId } = req.params;
 		const { background, isImage } = req.body;
 
+		if(!boardId || background){
+			return res.status(400).send({message:"Missing Required Fields "});
+		}
+
 		await boardService.updateBackground(boardId, background, isImage, req.user, (error, result) => {
-			if (error) return res.status(400).send(error);
+			if (error) return res.status(500).send(error);
 			return res.status(200).send(result);
 		});
 	} catch (error) {
@@ -162,13 +170,17 @@ const addMember = async (req, res) => {
 	try {
 		const validate = req.user.boards.filter((board) => board === req.params.id);
 		if (!validate)
-			return res.status(400).send({ errMessage: 'You are not authorized to access this board' });
+			return res.status(401).send({ errMessage: 'You are not authorized to access this board' });
 	
 		const { boardId } = req.params;
 		const { members } = req.body;
+
+		if(!members){
+			return res.status(400).send({message:"Missing Required Fields "});
+		}
 	
 		await boardService.addMember(boardId, members, req.user, (error, result) => {
-			if (error) return res.status(400).send({message:error.message});
+			if (error) return res.status(500).send(error);
 			return res.status(200).send(result);
 		});
 	} catch (error) {

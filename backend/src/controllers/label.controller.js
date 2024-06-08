@@ -35,14 +35,23 @@ const deleteLabel = async (req, res) => {
 };
 
 const updateLabelSelection = async (req, res) => {
+	try {
 	const user = req.user;
 	const { boardId, listId, cardId, labelId } = req.params;
 	const { selected } = req.body;
+
+	if (!boardId || !listId || !cardId || !labelId) {
+		return res.status(400).send({ message: 'Missing required parameters.' });
+	}
 
 	await labelServices.updateLabelSelection(cardId, listId, boardId, labelId, user, selected, (error, result) => {
 		if (error) return res.status(500).send(error);
 		return res.status(200).send(result);
 	});
+	} catch (error) {
+		return res.status(500).send(error.message)
+	}
+	
 };
 
 

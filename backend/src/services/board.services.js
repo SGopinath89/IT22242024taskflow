@@ -2,22 +2,16 @@ const { findOne } = require('../models/board.js');
 const boardModel = require('../models/board.js');
 const userModel = require('../models/user.js');
 
-//add member is not working
-//creation of board is not working properly
-
 const create = async (req, callback) => {
 	try {
 		const { title, backgroundImageLink, members } = req.body;
-		// Create and save new board
 		let newBoard = boardModel({ title, backgroundImageLink });
-		await newBoard.save(); // Added await
+		await newBoard.save(); 
 
-		// Add this board to owner's boards
 		const user = await userModel.findById(req.user.id);
 		user.boards.unshift(newBoard.id);
 		await user.save();
 
-		// Add user to members of this board
 		let allMembers = [];
 		allMembers.push({
 			user: user.id,
@@ -28,8 +22,7 @@ const create = async (req, callback) => {
 			role: 'owner',
 		});
 
-		// Save newBoard's id to boards of members and,
-		// Add ids of members to newBoard
+
 		await Promise.all(
 			members.map(async (member) => {
 				try {
@@ -47,7 +40,6 @@ const create = async (req, callback) => {
 						color: newMember.color,
 						role: 'member',
 					});
-					// Add to board activity
 					newBoard.activity.push({
 						user: user.id,
 						name: user.name,
@@ -55,16 +47,15 @@ const create = async (req, callback) => {
 					});
 				} catch (error) {
 					console.error(`Error saving member: ${error.message}`);
-					// Handle error for individual member
-					// You can choose to log, ignore, or handle the error as appropriate
+					
 				}
 			})
 		);
 
-		// Add created activity to activities of this board
+		
 		newBoard.activity.unshift({ user: user._id, name: user.name, action: 'created this board', color: user.color });
 
-		// Save new board
+	
 		newBoard.members = allMembers;
 		await newBoard.save();
 
@@ -101,7 +92,10 @@ const getAll = async (userId, callback) => {
 const getById = async (id, callback) => {
 	try {
 		const board = await boardModel.findById(id);
-		return callback(null, board);
+		if (!board) {
+			return callback({ message: 'Board not found' });
+		}
+		return callback(false, board);
 	} catch (error) {
 		return callback({ message: 'Error fetching board', details: error.message });
 	}
@@ -109,18 +103,15 @@ const getById = async (id, callback) => {
 
 const deleteBoard=async(id,callback)=>{
 	try {
-		const findBoard = await boardModel.findById(id);
-		if (!findBoard) {
-            return res.status(404).json({ message: 'Board not found' });
+		const board = await boardModel.findByIdAndDelete(id);
+        if (!board) {
+            return callback({ message: 'Board not found' });
         }
-
-		const validate = req.user.boards.filter((board) => board === req.params.id);
-		if (!validate)
-			return res.status(401).send({ message: 'You are not authorized to view this board' });
-	
-
-		await boardModel.findByIdAndDelete(boardId);
-		return callback(false, { message: 'Board deleted successfully' });
+        await userModel.updateMany(
+            { boards: id },
+            { $pull: { boards: id } } 
+        );
+        return callback(null, { message: 'Board deleted successfully' });
 	
 	} catch (error) {
 		return callback({ message: 'Error fetching board', details: error.message });
@@ -130,6 +121,9 @@ const deleteBoard=async(id,callback)=>{
 const getActivityById = async (id, callback) => {
 	try {
 		const board = await boardModel.findById(id);
+		if(!board){
+			return callback({ message: 'Board not found' });
+		}
 		return callback(false, board.activity);
 	} catch (error) {
 		return callback({ message: 'Error fetching board ', details: error.message });
@@ -139,6 +133,9 @@ const getActivityById = async (id, callback) => {
 const updateBoardTitle = async (boardId, title, user, callback) => {
 	try {
 		const board = await boardModel.findById(boardId);
+		if(!board){
+			return callback({ message: 'Board not found' });
+		}
 		board.title = title;
 		board.activity.unshift({
 			user: user._id,
@@ -157,6 +154,9 @@ const updateBoardTitle = async (boardId, title, user, callback) => {
 const updateBoardDescription = async (boardId, description, user, callback) => {
 	try {
 		const board = await boardModel.findById(boardId);
+		if(!board){
+			return callback({ message: 'Board not found' });
+		}
 		board.description = description;
 
 		board.activity.unshift({
@@ -175,6 +175,10 @@ const updateBoardDescription = async (boardId, description, user, callback) => {
 const updateBackground = async (id, background, isImage, user, callback) => {
 	try {
 		const board = await boardModel.findById(id);
+
+		if(!board){
+			return callback({ message: 'Board not found' });
+		}
 
 		board.backgroundImageLink = background;
 		board.isImage = isImage;

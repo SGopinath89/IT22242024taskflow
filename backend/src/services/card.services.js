@@ -75,12 +75,12 @@ const getCard = async (cardId, listId, boardId, user, callback) => {
 		const card = await cardModel.findById(cardId);
 		const list = await listModel.findById(listId);
 		const board = await boardModel.findById(boardId);
-
+		
 		const validate = await helperMethods.validateCardOwners(card, list, board, user, false);
 		if (!validate) {
-			return res.status(400).send({ message: 'You are not authorized to access the Card' });
+			return res.status(401).send({ message: 'You are not authorized to access the Card' });
 		}
-
+	
 		let returnObject = { ...card._doc, listTitle: list.title, listId: listId, boardId: boardId };
 
 		return callback(false, returnObject);
