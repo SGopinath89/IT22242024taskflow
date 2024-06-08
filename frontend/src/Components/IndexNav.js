@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { lg } from "../BreakPoints";
-import trelloLogo from "../Images/trello-logo.svg";
+import Logo from "../Images/tf-logo.svg";
 const Container = styled.nav`
   position: fixed;
   top: 0;
@@ -56,7 +56,7 @@ const IndexNav = () => {
   let navigate = useNavigate();
   return (
     <Container>
-      <Icon src={trelloLogo} />
+      <Icon src={Logo} />
       <RightSide>
         <Link onClick={()=>navigate("/login")}>Log in</Link>
         <Button onClick={()=>navigate("/register")}>Sign up</Button>

@@ -54,7 +54,7 @@ const LogoContainer = styled.div`
 	align-items: center;
 `;
 
-const TrelloLogo = styled.img`
+const Logo = styled.img`
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
@@ -78,7 +78,7 @@ const Navbar = (props) => {
 		<Container>
 			<LeftSide>
 				<LogoContainer>
-					<TrelloLogo
+					<Logo
 						onClick={() => {
 							navigate('/boards');
 						}}

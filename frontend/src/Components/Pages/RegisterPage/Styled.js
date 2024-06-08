@@ -15,7 +15,7 @@ export const Container = styled.div`
     backgroundColor: "#F9FAFC",
   })}
 `;
-export const TrelloIconContainer = styled.div`
+export const IconContainer = styled.div`
   cursor: pointer;
   padding-top: 2.5rem;
   ${md({

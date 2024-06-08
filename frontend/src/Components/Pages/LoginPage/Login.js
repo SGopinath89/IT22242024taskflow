@@ -8,7 +8,7 @@ import logo from '../LoginPage/Black Beige Minimalist Simple Modern Typography V
 import {
   BgContainer,
   Container,
-  TrelloIconContainer,
+  IconContainer,
   FormSection,
   FormCard,
   Form,
@@ -41,13 +41,13 @@ const Login = () => {
         <Background />
       </BgContainer>
       <Container>
-        <TrelloIconContainer onClick={() => navigate("/")}>
+        <IconContainer onClick={() => navigate("/")}>
           <Icon src={logo} />
-        </TrelloIconContainer>
+        </IconContainer>
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>
-              <Title>Log in to Trello</Title>
+              <Title>Log in to TaskFlow</Title>
               <Input
                 type="email"
                 placeholder="Enter Email"

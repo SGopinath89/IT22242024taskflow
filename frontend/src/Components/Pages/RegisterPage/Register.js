@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   BgContainer,
   Container,
-  TrelloIconContainer,
+  IconContainer,
   FormSection,
   FormCard,
   Form,
@@ -47,9 +47,9 @@ const Register = () => {
         <Background />
       </BgContainer>
       <Container>
-        <TrelloIconContainer onClick={() => navigate("/")}>
+        <IconContainer onClick={() => navigate("/")}>
           <Icon src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg" />
-        </TrelloIconContainer>
+        </IconContainer>
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>
