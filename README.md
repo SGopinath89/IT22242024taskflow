@@ -7,7 +7,6 @@ Taskflow is an efficient and user-friendly task management system designed to he
 
 The purpose of this project is to develop a comprehensive task management system to address these issues. By providing a single platform for task organization and collaboration, the project aims to streamline workflows, improve communication, and enhance productivity within the organization.
 
-
 ## Features
 
 - **User Management:** Manage user accounts and profiles.
@@ -56,15 +55,12 @@ The purpose of this project is to develop a comprehensive task management system
 
 ---
 
-
-
 ## Step-by-Step Guide to Run TaskFlow
 
 ##### Prerequisites
 
 - Download nodejs [here](https://nodejs.org/en/download/)
 - For database, you can use local mongodb or mongo atlas. See [here](https://www.mongodb.com/)
-- 
 - For backend Testing use postman [here](https://www.postman.com/downloads/)
 
 ##### Installation
@@ -124,10 +120,8 @@ The purpose of this project is to develop a comprehensive task management system
   ```
 - This command will start the server and you can access the application at `http://localhost:{port}`.
 
-
 ## Conclusion
 
 TaskFlow is designed to simplify the complexities of task management, making it easier for users to stay organized and productive. By following the steps above, you can set up and run TaskFlow on your local machine, and start managing your tasks more efficiently.
-
 
 ##### For more details, check out the TaskFlow Documentation.
