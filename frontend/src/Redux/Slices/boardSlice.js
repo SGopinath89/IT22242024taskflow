@@ -49,6 +49,9 @@ const boardSlice = createSlice({
 		},
 		addMembers: (state,action)=>{
 			state.members = action.payload;
+		},
+		deleteBoardAction:(state)=>{
+			state = initialState;
 		}
 	},
 });
@@ -62,5 +65,6 @@ export const {
 	updateDescription,
 	updateBackground,
 	addMembers,
+	deleteBoardAction,
 } = boardSlice.actions;
 export default boardSlice.reducer;

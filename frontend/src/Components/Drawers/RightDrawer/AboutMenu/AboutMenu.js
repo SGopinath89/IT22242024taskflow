@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
 	Container,
 	SectionContainer,
@@ -14,10 +15,12 @@ import {
 	DescriptionInput,
 	HiddenText,
 } from './styled';
+
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import MemberIcon from '@mui/icons-material/PersonOutlineOutlined';
 import DescriptionIcon from '@mui/icons-material/TextSnippetOutlined';
 import BottomButtonGroup from '../../../Pages/BoardPage/BoardComponents/BottomButtonGroup/BottomButtonGroup';
-import { boardDescriptionUpdate } from '../../../../Services/boardService';
+import { boardDescriptionUpdate , deleteBoard} from '../../../../Services/boardService';
 import { Avatar } from '@mui/material';
 const AboutMenu = () => {
 	const textAreaRef = useRef();
@@ -25,10 +28,19 @@ const AboutMenu = () => {
 	const descriptionAreaRef = useRef();
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const board = useSelector((state) => state.board);
 	const [description, setDescription] = useState(board.description);
 	const [textareaFocus, setTextareaFocus] = useState(false);
+
+	const handleDeleteClick = () => {
+        if (window.confirm('Are you sure you want to delete this board? This action cannot be undone.')) {
+            // Call the delete board service
+            deleteBoard(board.id, dispatch);
+			navigate('/boards');
+        }
+    };
 
 	const onChangeHandler = function (e) {
 		const target = e.target;
@@ -111,6 +123,19 @@ const AboutMenu = () => {
 				</DescriptionSectionContainer>
 			</SectionContainer>
 			<HiddenText ref={hiddenTextRef}>{description}</HiddenText>
+			<SectionContainer>
+				<SectionContainer>
+					<IconWrapper>
+						<DeleteIcon fontSize='inherit' onClick={handleDeleteClick} />
+					</IconWrapper>
+					<SectionTitle>Delete Board</SectionTitle>
+				</SectionContainer>
+				<BottomButtonGroup
+					title='Delete'
+					clickCallback={handleDeleteClick}
+					closeCallback={() => {}}
+				/>
+			</SectionContainer>
 		</Container>
 	);
 };

@@ -7,7 +7,7 @@ import {
 	updateListTitle,
 } from '../Redux/Slices/listSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
-import { addMembers, setActivityLoading, updateActivity, updateBackground, updateDescription } from '../Redux/Slices/boardSlice';
+import { addMembers, setActivityLoading, updateActivity, updateBackground, updateDescription,deleteBoardAction } from '../Redux/Slices/boardSlice';
 
 const listRoute = 'http://localhost:3000/api/list';
 const boardRoute = 'http://localhost:3000/api/board';
@@ -94,6 +94,17 @@ export const listTitleUpdate = async (listId, boardId, title, dispatch) => {
 			})
 		);
 	}
+};
+
+export const deleteBoard = async (boardId, dispatch) => {
+    try {
+        // Make the API call to delete the board
+        await axios.delete(`${boardRoute}/${boardId}`);
+        // Dispatch the delete action
+        dispatch(deleteBoardAction(boardId));
+    } catch (error) {
+        console.error("Failed to delete the board:", error);
+    }
 };
 
 export const boardDescriptionUpdate = async (boardId, description, dispatch) => {
