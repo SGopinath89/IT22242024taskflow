@@ -50,7 +50,7 @@ const CoverPopover = () => {
 						$color={card.cover.color}
 					/>
 				</SizeWrapper>
-				<SizeWrapper onClick={() => handleColorClick(card.cover.color, false)} show={card.cover.color}>
+				<SizeWrapper onClick={() => handleColorClick(card.cover.color, false)} $show={card.cover.color}>
 					<SizeTypeTwo
 						$selected={card.cover.color && card.cover.isSizeOne !== null && !card.cover.isSizeOne}
 						$color={card.cover.color}

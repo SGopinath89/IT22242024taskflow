@@ -219,7 +219,7 @@ const DatePopover = (props) => {
 					/>
 				</Row>
 				<SaveButton onClick={handleSaveClick}>Save</SaveButton>
-				<Button clickCallback={handleRemoveClick} title='Remove' />
+				<Button $clickCallback={handleRemoveClick} title='Remove' />
 			</Wrapper>
 		</Container>
 	);

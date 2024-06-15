@@ -49,7 +49,7 @@ const PhotosMenu = (props) => {
 				? images.map((image) => {
 						return (
 							<PhotosWrapper key={image.id} onClick={() => handleClick(image.urls.full)}>
-								<Image key={image.id} link={image.urls.small} />
+								<Image key={image.id} $link={image.urls.small} />
 							</PhotosWrapper>
 						);
 				  })

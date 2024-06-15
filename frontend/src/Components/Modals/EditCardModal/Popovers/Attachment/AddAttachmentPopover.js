@@ -43,7 +43,7 @@ const AddAttachmentPopover = (props) => {
 					<SearchArea value={linkName} onChange={(e) => setLinkName(e.target.value)} />
 				</>
 			)}
-			<Button style={{ marginTop: '1rem' }} title='Attach' clickCallback={handleAttachClick} />
+			<Button style={{ marginTop: '1rem' }} title='Attach' $clickCallback={handleAttachClick} />
 		</Container>
 	);
 };

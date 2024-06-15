@@ -35,7 +35,7 @@ const LoadingBox = styledComponent.div`
 	height: 3rem;
 	width: 8rem;
 	padding: 0.5rem 3rem;
-	background-image: url(${(props) => props.image});
+	background-image: url(${(props) => props.$image});
 	background-position: center;
 	background-repeat: no-repeat;
 `;

@@ -85,7 +85,7 @@ const Attachments = (props) => {
 					})}
 					<Button
 						style={{ width: '9rem', marginTop: '0.7rem' }}
-						clickCallback={(event) => setAttachmentPopover(event.currentTarget)}
+						$clickCallback={(event) => setAttachmentPopover(event.currentTarget)}
 						title='Add an Attachment'
 					/>
 				</RightWrapper>
