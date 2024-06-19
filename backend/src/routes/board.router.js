@@ -1,7 +1,6 @@
 const express = require('express');
 const boardController = require('../controllers/board.controllers.js');
 const route = express.Router();
-// const {verifyToken}= require('../middleware/auth.middleware.js')
 
 
 route.post('/create', boardController.create);
