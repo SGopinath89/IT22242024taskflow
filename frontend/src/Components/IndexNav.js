@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { lg } from "../BreakPoints";
-import Logo from "../Images/tf-logo.svg";
+import { lg,sm } from "../BreakPoints";
+import Logo from "../Images/tasklogo.gif";
 const Container = styled.nav`
   position: fixed;
   top: 0;
@@ -15,16 +15,25 @@ const Container = styled.nav`
   justify-content: space-between;
   padding: 1rem;
   z-index: 100;
-
   ${lg({
-    justifyContent: "space-between",    
+    justifyContent: "space-between",
   })}
+
+  
 `;
 
 const Icon = styled.img`
   margin-left: 1rem;
+  height:4rem;
+  width:4rem;
   ${lg({
     marginLeft: "0",
+  })}
+
+  ${sm({
+    marginLeft: "0",
+    height: "3rem",
+    width: "3rem",
   })}
 `;
 
@@ -32,13 +41,10 @@ const RightSide = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  
 `;
 
-const Link = styled.a`
-  text-decoration: underline;
-  cursor: pointer;
-  color: #0952cc;
-`;
+
 
 const Button = styled.button`
   background-color: #0065ff;
@@ -50,6 +56,8 @@ const Button = styled.button`
   &:hover {
     background-color: #0952cc;
   }
+
+  
 `;
 
 const IndexNav = () => {
@@ -58,7 +66,7 @@ const IndexNav = () => {
     <Container>
       <Icon src={Logo} />
       <RightSide>
-        <Link onClick={()=>navigate("/login")}>Log in</Link>
+        <Button onClick={()=>navigate("/login")}>Log in</Button>
         <Button onClick={()=>navigate("/register")}>Sign up</Button>
       </RightSide>
     </Container>

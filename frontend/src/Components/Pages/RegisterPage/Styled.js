@@ -24,7 +24,7 @@ export const IconContainer = styled.div`
 `;
 export const Icon = styled.img`
   display: block;
-  height: 2.6rem;
+  height: 4rem;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2.5rem;

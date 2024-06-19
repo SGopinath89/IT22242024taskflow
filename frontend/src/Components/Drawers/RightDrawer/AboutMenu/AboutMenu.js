@@ -125,16 +125,14 @@ const AboutMenu = () => {
 			<HiddenText ref={hiddenTextRef}>{description}</HiddenText>
 			<SectionContainer>
 				<SectionContainer>
-					<IconWrapper>
-						<DeleteIcon fontSize='inherit' onClick={handleDeleteClick} />
-					</IconWrapper>
 					<SectionTitle>Delete Board</SectionTitle>
-				</SectionContainer>
-				<BottomButtonGroup
+					<BottomButtonGroup
 					title='Delete'
 					clickCallback={handleDeleteClick}
 					closeCallback={() => {}}
 				/>
+				</SectionContainer>
+				
 			</SectionContainer>
 		</Container>
 	);

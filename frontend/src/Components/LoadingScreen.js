@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import styled from 'styled-components';
+import loadingIcon from '../Images/loading.gif';
 const Icon = styled.img`
-	width: 10vw;
+	width: 5rem;
+	height:5rem;
 `;
 
 export default function LoadingScreen() {
@@ -17,7 +19,7 @@ export default function LoadingScreen() {
 				open={open}
 				// onClick={handleClose}
 			>
-				<Icon src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif' />
+				<Icon src={loadingIcon} />
 			</Backdrop>
 		</div>
 	);

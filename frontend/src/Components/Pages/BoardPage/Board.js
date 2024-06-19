@@ -71,7 +71,7 @@ const Board = (props) => {
   				// bgColor={isImage ? '' : backgroundColor}
 			>
 				<TopBar />
-				{/* {(loading || loadingListService) && <LoadingScreen />} */}
+				{(loading || loadingListService) && <LoadingScreen />}
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='all-columns' direction='horizontal' type='column'>
 						{(provided, snapshot) => {

@@ -18,13 +18,21 @@ export const Content = styled.section`
   align-items: center;
   justify-content: center;
   gap: 10%;
-
   ${lg({
     flexDirection: "column-reverse",
     paddingTop: "6rem",
     alignItems: "stretch",
     gap: "5%",
   })}
+
+  ${sm({
+    flexDirection: "column-reverse",
+    paddingTop: "4rem",
+    alignItems: "stretch",
+    gap: "5%",
+  })}
+
+  
 `;
 
 export const LeftSide = styled.div`
@@ -36,6 +44,11 @@ export const LeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  ${lg({
+    width: "30rem",
+    alignItems: "center",
+  })}
+
   ${sm({
     width: "19rem",
     alignItems: "center",
@@ -45,6 +58,12 @@ export const LeftWrapper = styled.div`
 export const Title = styled.h1`
   font-size: 3rem;
   font-weight: 600;
+  padding-top:50px;
+  ${lg({
+    fontSize: "2rem",
+    textAlign: "center",
+  })}
+
   ${sm({
     fontSize: "1.5rem",
     textAlign: "center",
@@ -57,10 +76,16 @@ export const Text = styled.h3`
   font-size: 1.3rem;
   text-align: left;
   line-height: 1.5;
+  ${lg({
+    fontSize: "1.1rem",
+    textAlign: "center",
+    padding: "0 2rem",
+  })}
+
   ${sm({
     fontSize: "1rem",
     textAlign: "center",
-    padding: "0px, 3rem",
+    padding: "0 1rem",
   })}
 `;
 
@@ -82,6 +107,11 @@ export const Button = styled.button`
     marginTop: "1.5rem",
     width: "100%",
   })}
+
+  ${sm({
+    marginTop: "1.5rem",
+    width: "100%",
+  })}
 `;
 
 export const RightSide = styled.div`
@@ -91,15 +121,24 @@ export const RightSide = styled.div`
   ${lg({
     maxHeight: "300px",
   })}
+
+  ${sm({
+    maxHeight: "200px",
+  })}
 `;
 
 export const SvgItem = styled.img`
-  width: 400.5px;
+  width: 600px;
   aspect-ratio: auto 465.5 / 602.5;
-  height: 540.5px;
+  height: 600px
 
   ${lg({
+    width: "500px",
+    height: "500px",
+  })}
+
+  ${sm({
     width: "300px",
-    height: "272px",
+    height: "300px",
   })}
 `;

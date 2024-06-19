@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
 import { useNavigate } from 'react-router-dom';
-import tflogo from '../Images/logo-no-background.png';
+import tflogo from '../Images/tasklogo.gif';
 
 const Container = styled.div`
 	height: 3rem;
@@ -82,9 +82,7 @@ const Navbar = (props) => {
 						onClick={() => {
 							navigate('/boards');
 						}}
-						src={tflogo
-							
-						}
+						src={tflogo}
 					/>
 				</LogoContainer>
 				<DropdownContainer>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import IndexNav from "../../IndexNav";
 import { useNavigate } from "react-router-dom";
+import indexImage from '../../../Images/indexImage.png'
 import {
   Container,
   Content,
@@ -37,7 +38,7 @@ const Index = () => {
             </LeftWrapper>
           </LeftSide>
           <RightSide>
-            <SvgItem src="https://images.ctfassets.net/rz1oowkt5gyp/5QIzYxue6b7raOnVFtMyQs/113acb8633ee8f0c9cb305d3a228823c/hero.png?w=1200&fm=webp" />
+            <SvgItem src={indexImage} />
           </RightSide>
         </Content>
       </Container>

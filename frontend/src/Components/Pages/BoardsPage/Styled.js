@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import mainBack from '../../../Images/mainBack.jpg'
 
 export const Container = styled.div`
-	background-image: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/a651551a5214cb84963366cf9eaacb40/photo-1636207543865-acf3ad382295.jpg');
+	background-image: url(${mainBack});
 	background-position: 50%;
 	background-size: cover;
 	height: 100vh;
@@ -18,7 +19,7 @@ export const Title = styled.h1`
 	text-align: center;
 	width: 100vw;
 	margin-bottom: 1rem;
-	color: lightblue;
+	color: white;
 	text-shadow: 3px 0px 7px rgba(81, 67, 21, 0.8), -3px 0px 7px rgba(81, 67, 21, 0.8),
 		0px 4px 7px rgba(81, 67, 21, 0.8);
 	user-select: none;
@@ -65,8 +66,10 @@ export const Board = styled.div`
 `;
 
 export const AddBoard = styled(Board)`
-	background-color: transparent;
-	background-image: linear-gradient(to right, #0b486b 0%, #f56217 51%, #0b486b 100%);
+	${'' /* background-color: transparent;
+	background-image: linear-gradient(to right, #0b486b 0%, #f56217 51%, #0b486b 100%); */}
+	 background: rgb(24,75,219);
+	background: linear-gradient(90deg, rgba(24,75,219,0.9893207282913166) 0%, rgba(238,195,130,1) 50%, rgba(0,105,255,0.9949229691876751) 100%); 
 	font-size: 1.2rem;
 	transition: 2s;
 	opacity: 65%;

@@ -13,7 +13,7 @@ import styled from 'styled-components';
 
 	export const Container = styled.div`
   	background-repeat: no-repeat;
-  	background-position: 50%;
+  	background-position: center;
   	zoom: 1;
   	padding-top: 3rem;
   	height: fit-content;

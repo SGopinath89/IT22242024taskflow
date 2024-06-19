@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
-import logo from '../LoginPage/Black Beige Minimalist Simple Modern Typography Vanilla Cosmetics Logo.svg';
+import logo from '../../../Images/tasklogo.gif';
 import {
   BgContainer,
   Container,
