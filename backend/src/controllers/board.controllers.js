@@ -151,7 +151,7 @@ const updateBackground = async (req, res) => {
 		const { boardId } = req.params;
 		const { background, isImage } = req.body;
 
-		if(!boardId || background){
+		if(!boardId || !background){
 			return res.status(400).send({message:"Missing Required Fields "});
 		}
 

@@ -15,15 +15,42 @@ import { openAlert } from "../Redux/Slices/alertSlice";
 import setBearer from "../Utils/setBearer";
 const baseUrl = "http://localhost:3000/api/user/";
 
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 export const register = async (
   { name, surname, email, password, repassword },
   dispatch
 ) => {
   dispatch(registrationStart());
-  if (password !== repassword) {
+
+  if (!name || !surname || !email || !password || !repassword) {
     dispatch(
       openAlert({
-        message: "Your passwords does not match!",
+        message: "All fields are required!",
+        severity: "error",
+      })
+    );
+  } else if (!isValidEmail(email)) {
+    dispatch(
+      openAlert({
+        message: "Invalid email format!",
+        severity: "error",
+      })
+    );
+  } else if (password.length < 6) {
+    dispatch(
+      openAlert({
+        message: "Password must be at least 6 characters long!",
+        severity: "error",
+      })
+    );
+  } else if (password !== repassword) {
+    dispatch(
+      openAlert({
+        message: "Your passwords do not match!",
         severity: "error",
       })
     );
@@ -59,30 +86,55 @@ export const register = async (
 
 export const login = async ({ email, password }, dispatch) => {
   dispatch(loginStart());
-  try {
-    const res = await axios.post(baseUrl + "login", { email, password });
-    const { user, message } = res.data;
-    localStorage.setItem("token", user.token);
-    setBearer(user.token);
-      dispatch(loginSuccess({ user }));
+
+  if (!email || !password) {
     dispatch(
       openAlert({
-        message,
-        severity: "success",
-        duration: 500,
-        nextRoute: "/boards",
-      })
-    );
-  } catch (error) {
-    dispatch(loginFailure());
-    dispatch(
-      openAlert({
-        message: error?.response?.data?.errMessage
-          ? error.response.data.errMessage
-          : error.message,
+        message: "Both email and password are required!",
         severity: "error",
       })
     );
+  } else if (!isValidEmail(email)) {
+    dispatch(
+      openAlert({
+        message: "Invalid email format!",
+        severity: "error",
+      })
+    );
+  } else if (password.length < 6) {
+    dispatch(
+      openAlert({
+        message: "Password must be at least 6 characters long!",
+        severity: "error",
+      })
+    );
+  } else {
+    try {
+      const res = await axios.post(baseUrl + "login", { email, password });
+      const { user, message } = res.data;
+      localStorage.setItem("token", user.token);
+      setBearer(user.token);
+      dispatch(loginSuccess({ user }));
+      dispatch(
+        openAlert({
+          message,
+          severity: "success",
+          duration: 500,
+          nextRoute: "/boards",
+        })
+      );
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message
+        ? error.response.data.message
+        : error.message;
+      dispatch(loginFailure());
+      dispatch(
+        openAlert({
+          message: errorMessage,
+          severity: "error",
+        })
+      );
+    }
   }
 };
 
@@ -106,11 +158,11 @@ export const getUserFromEmail = async (email, dispatch) => {
         message: "Please write an email to invite",
         severity: "warning",
       })
-      );
-      dispatch(fetchingFinish());
-      return null;
-    }
-    
+    );
+    dispatch(fetchingFinish());
+    return null;
+  }
+
   try {
     const res = await axios.post(baseUrl + "get-user-with-email", { email });
     dispatch(fetchingFinish());
@@ -119,12 +171,12 @@ export const getUserFromEmail = async (email, dispatch) => {
     dispatch(
       openAlert({
         message: error?.response?.data?.errMessage
-        ? error.response.data.errMessage
-        : error.message,
+          ? error.response.data.errMessage
+          : error.message,
         severity: "error",
       })
-      );
-     dispatch(fetchingFinish());
-     return null;
+    );
+    dispatch(fetchingFinish());
+    return null;
   }
 };

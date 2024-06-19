@@ -13,9 +13,7 @@ const register = async(user, callback)=>{
 const login= async(email,callback)=>{
     try {
         let user= await userModel.findOne({email});
-        if(!user){
-            return callback({message: "Invalid Email/Password", details:error.message});
-        }
+        
         return callback(false,{...user.toJSON()});
     } catch (error) {
         return callback({message:"An error occurred While User login"});

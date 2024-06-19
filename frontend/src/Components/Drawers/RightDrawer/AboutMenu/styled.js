@@ -79,7 +79,7 @@ width:100%;
 resize:none;
 border-radius:3px;
 font-size:0.875rem;
-min-height:${props=>props.value?'1.5rem':'5rem'};
+min-height:${props=>props.$value?'1.5rem':'5rem'};
 ${props=>!props.$focused&&'max-height: '+props.$textHeight+'px'};
 padding: ${props=>props.$value?'0rem':'0.5rem'};
 border:none;

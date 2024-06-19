@@ -32,6 +32,11 @@ const login =async(req,res)=>{
         return res.status(400).send({message: "Please fill all the Required fields"});
     }
 
+    let Checkuser= await user.findOne({email});
+        if(!Checkuser){
+            return res.status(404).send({message: "Invalid Email/Password"});
+        }
+
     await userService.login(email,(error,result)=>{
         if(error)
             return res.status(500).send(error)
