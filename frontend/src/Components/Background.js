@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import LeftImage from "../Images/tf-left.svg";
 import RightImage from "../Images/tf-right.svg";
-import {  sm } from "../BreakPoints";
 
 
 const Container = styled.div`

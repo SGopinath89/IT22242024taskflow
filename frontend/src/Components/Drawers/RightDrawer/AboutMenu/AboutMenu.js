@@ -16,7 +16,6 @@ import {
 	HiddenText,
 } from './styled';
 
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import MemberIcon from '@mui/icons-material/PersonOutlineOutlined';
 import DescriptionIcon from '@mui/icons-material/TextSnippetOutlined';
 import BottomButtonGroup from '../../../Pages/BoardPage/BoardComponents/BottomButtonGroup/BottomButtonGroup';

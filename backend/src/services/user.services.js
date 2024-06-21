@@ -20,19 +20,8 @@ const login= async(email,callback)=>{
     }
 }
 
-// const getUser= async(id, callback)=>{
-//     try {
-//         let user= await userModel.findById({id});
-//         if(!user){
-//             return callback({message: "User not found", details:error.message});
-//         }
-//         return callback(false,{...user.toJSON()});
-//     } catch (error) {
-//         return callback({message:error.message});
-//     }
-// }
 
-const getUser = async (userId) => {
+const getUserById = async (userId) => {
     try {
         const user = await userModel.findById(userId).select('-password -__v'); 
         return user;
@@ -40,6 +29,19 @@ const getUser = async (userId) => {
         throw new Error('Error fetching user details');
     }
 };
+
+const getUser = async (id, callback) => {
+    try {
+      let user = await userModel.findById(id);
+      if (!user) return callback({ errMessage: "User not found!" });
+      return callback(false, { ...user.toJSON() });
+    } catch (err) {
+      return callback({
+        errMessage: "Something went wrong",
+        details: err.message,
+      });
+    }
+  };
 
 const getUserWithEmail= async(email, callback)=>{
     try {
@@ -59,5 +61,6 @@ module.exports={
     register,
     login,
     getUser,
-    getUserWithEmail
+    getUserWithEmail,
+    getUserById
 }

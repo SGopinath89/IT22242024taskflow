@@ -69,23 +69,51 @@ export const IconWrapper = styled.div`
 
 const MemberName = styled.div``;
 
-const MemberComponent = (props) => {
+// const MemberComponent = (props) => {
+// 	const dispatch = useDispatch();
+// 	const card = useSelector((state) => state.card);
+// 	const isMember = card.members.filter((a) => a.user === props.user).length ? true : false;
+// 	const handleClick = async () => {
+// 		if (isMember) {
+// 			await memberDelete(card.cardId, card.listId, card.boardId, props.user, props.name, dispatch);
+// 		} else {
+// 			await memberAdd(card.cardId, card.listId, card.boardId, props.memberId, props.name, props.color, dispatch);
+// 		}
+// 	};
+// 	return (
+// 		<MemberWrapper onClick={handleClick}>
+// 			<Avatar sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}>
+// 				{props.name[0].toUpperCase()}
+// 			</Avatar>
+// 			<MemberName>{props.name}</MemberName>
+// 			{isMember && (
+// 				<IconWrapper>
+// 					<DoneIcon fontSize='1rem' />
+// 				</IconWrapper>
+// 			)}
+// 		</MemberWrapper>
+// 	);
+// };
+
+const MemberComponent = ({ memberId, user, name, color }) => {
 	const dispatch = useDispatch();
 	const card = useSelector((state) => state.card);
-	const isMember = card.members.filter((a) => a.user === props.user).length ? true : false;
+	const isMember = card.members.some((a) => a.user === user);
+
 	const handleClick = async () => {
 		if (isMember) {
-			await memberDelete(card.cardId, card.listId, card.boardId, props.user, props.name, dispatch);
+			await memberDelete(card.cardId, card.listId, card.boardId, user, name, dispatch);
 		} else {
-			await memberAdd(card.cardId, card.listId, card.boardId, props.user, props.name, props.color, dispatch);
+			await memberAdd(card.cardId, card.listId, card.boardId, memberId, name, color, dispatch);
 		}
 	};
+
 	return (
 		<MemberWrapper onClick={handleClick}>
-			<Avatar sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}>
-				{props.name[0].toUpperCase()}
+			<Avatar sx={{ width: 28, height: 28, bgcolor: color, fontSize: '0.875rem', fontWeight: '800' }}>
+				{name[0].toUpperCase()}
 			</Avatar>
-			<MemberName>{props.name}</MemberName>
+			<MemberName>{name}</MemberName>
 			{isMember && (
 				<IconWrapper>
 					<DoneIcon fontSize='1rem' />
@@ -95,15 +123,37 @@ const MemberComponent = (props) => {
 	);
 };
 
+
+
+// const MembersPopover = () => {
+// 	const members = useSelector((state) => state.board.members);
+// 	return (
+// 		<Container>
+// 			<SearchArea placeholder='Search member...' />
+// 			<Title>Board members</Title>
+// 			{members.map((member) => {
+// 				return <MemberComponent key={member.memberId} {...member} />;
+// 			})}
+// 		</Container>
+// 	);
+// };
+
 const MembersPopover = () => {
 	const members = useSelector((state) => state.board.members);
+
 	return (
 		<Container>
 			<SearchArea placeholder='Search member...' />
 			<Title>Board members</Title>
-			{members.map((member) => {
-				return <MemberComponent key={member.user} {...member} />;
-			})}
+			{members.map((member) => (
+				<MemberComponent
+					key={member.memberId} // Ensure each key is unique
+					memberId={member.memberId}
+					user={member.user}
+					name={member.name}
+					color={member.color}
+				/>
+			))}
 		</Container>
 	);
 };

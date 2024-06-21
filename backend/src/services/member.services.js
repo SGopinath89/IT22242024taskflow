@@ -38,6 +38,7 @@ const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
 		}
 
 		
+		
 		card.members.unshift({
 			user: member._id,
 			name: member.name,
@@ -45,7 +46,6 @@ const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
 		});
 		await card.save();
 
-		
 		board.activity.unshift({
 			user: user._id,
 			name: user.name,

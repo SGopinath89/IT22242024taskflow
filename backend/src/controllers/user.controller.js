@@ -54,6 +54,19 @@ const login =async(req,res)=>{
 };
 
 const getUser = async (req, res) => {
+    const userId = req.user.id;
+    await userService.getUser(userId, (err, result) => {
+      if (err) return res.status(404).send(err);
+  
+      result.password = undefined;
+      result.__v = undefined;
+  
+      return res.status(200).send(result);
+    });
+  };
+
+
+const getUserById = async (req, res) => {
     try {
         const{id}= req.params;
         const user = await userService.getUser(id);
@@ -103,5 +116,6 @@ module.exports={
     register,
     login,
     getUserwithMail,
-    getUser
+    getUser,
+    getUserById
 }
