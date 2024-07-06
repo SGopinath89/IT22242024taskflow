@@ -164,15 +164,18 @@ export const getUserFromEmail = async (email, dispatch) => {
   }
 
   try {
-    const res = await axios.post( `${backendUrl}/api/user/get-user-with-email`, { email });
+    const res = await axios.post(`${backendUrl}/api/user/get-user-with-email`, { email });
     dispatch(fetchingFinish());
     return res.data;
   } catch (error) {
+    const errorMessage = error?.response?.status === 404
+      ? "User not found with this email!"
+      : error?.response?.data?.errMessage
+        ? error.response.data.errMessage
+        : error.message;
     dispatch(
       openAlert({
-        message: error?.response?.data?.errMessage
-          ? error.response.data.errMessage
-          : error.message,
+        message: errorMessage,
         severity: "error",
       })
     );

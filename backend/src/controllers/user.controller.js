@@ -97,7 +97,7 @@ const getUserwithMail= async(req,res)=>{
         const {email}= req.body;
         await userService.getUserWithEmail(email,(error,result)=>{
             if(error)
-                return res.status(404).send({message:error.message});
+                return res.status(404).send({message:"User not found"});
     
             const displayData={
                 name:result.name,
