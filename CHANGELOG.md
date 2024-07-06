@@ -1,4 +1,4 @@
-#### 1.0.0 (2024-06-08)
+#### 1.0.0 (2024-06-23)
 
 ##### Chores
 
@@ -6,10 +6,14 @@
 
 ##### Documentation Changes
 
+*  add changelog and update readme (f549c895)
 *  add readme (aaa7a0cb)
 
 ##### New Features
 
+*  update base url path (dacc5ca3)
+*  updated ui components (40675e05)
+*  delete board ui updated (b67f0a27)
 *  add logo to login page (51c02475)
 *  add logo for taskbar (d08f9f81)
 *  add taskflow logo (317e6910)
@@ -149,6 +153,8 @@
 
 ##### Bug Fixes
 
+*  bug fixed (4870c8cc)
+*  update ui components (5d1e0882)
 *  error handling updated (d465f51b)
 *  update react dnd functions (7cf6f081)
 *  frontend board display error fixed (7bf2ce6a)
@@ -179,6 +185,8 @@
 
 ##### Refactors
 
+*  code cleanup (3ac97051)
+*  change images (4dce8948)
 *  Error Handling (1d95d21b)
 *  authentication updated (430f20b5)
 *  Connection establishment (bf8cbf66)

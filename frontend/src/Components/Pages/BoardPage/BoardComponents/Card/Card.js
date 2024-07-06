@@ -20,13 +20,11 @@ import {
 	Label,
 	LabelContainer,
 	Span,
-	CheckContainer,
-	MembersContainer,
-	MembersWrapper,
+	CheckContainer
 } from './styled';
 import { Draggable } from "@hello-pangea/dnd";
 import moment from 'moment';
-import { Avatar } from '@mui/material';
+//import { Avatar } from '@mui/material';
 const Card = (props) => {
 	const [openModal, setOpenModal] = useState(false);
 	const card = props.info;
@@ -167,7 +165,7 @@ const Card = (props) => {
 										)}
 									</IconGroupWrapper>
 								</IconGroupContainer>
-								{card.members && (
+								{/* {card.members && (
 									<MembersContainer>
 										<MembersWrapper>
 											{card.members &&
@@ -189,7 +187,7 @@ const Card = (props) => {
 												})}
 										</MembersWrapper>
 									</MembersContainer>
-								)}
+								)} */}
 							</FooterContainer>
 						</Container>
 					);
