@@ -46,6 +46,7 @@ The purpose of this project is to develop a comprehensive task management system
 ## Features
 
 - **User Management:** Manage user accounts and profiles.
+  - Administrators can create user profiles by entering email and password. They can assign users to specific boards.
 - **Board Management:** Create and organize boards to group related tasks.
 - **List Management:** Create lists within boards to categorize tasks.
 - **Card Management:** Add and manage tasks (cards) within lists.
@@ -122,7 +123,7 @@ The purpose of this project is to develop a comprehensive task management system
     npm install
     ```
 
-5. Create a `.env` file in the backend directory similar to `.env.example` and enter the required variables:
+5. Create a `.env` file in the backend directory similar to `.env.sample` and enter the required variables:
 
     ```env
     MONGODB_URI="mongodb://localhost:27017/mydb"
@@ -152,7 +153,7 @@ The purpose of this project is to develop a comprehensive task management system
 
     **Note:** `--force` is required to install the packages. Ignore the Vulnerabilities Warning.
 
-8. Create a `.env` file in the frontend directory similar to `.env.example` and enter the required variables:
+8. Create a `.env` file in the frontend directory similar to `.env.sample` and enter the required variables:
 
     ```env
     REACT_APP_BACKEND_URL=http://localhost:port
